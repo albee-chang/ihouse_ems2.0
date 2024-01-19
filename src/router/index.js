@@ -5,7 +5,7 @@ const routes = [
     path: '/access',
     name: 'access',
     component: () => import('../views/AccessLayout.vue'),
-    redirect: '/access/accountManger', //預設路由
+    redirect: '/access/accountManger', // 預設路由
     children: [
       {
         path: 'accountManger',
@@ -21,24 +21,24 @@ const routes = [
     path: '/devices',
     name: 'devices',
     component: () => import('../views/AccessLayout.vue'),
-    redirect: '/devices/devicesManger', //預設路由
+    redirect: '/devices/devicesManger', // 預設路由
     children: [
       {
         path: 'devicesManger',
         component: () => import('../views/devicesView/DeviceMangerView.vue')
-      },      {
+      }, {
         path: 'locationManger',
         component: () => import('../views/devicesView/LocationMangerView.vue')
-      },
-      
+      }
+
       // {
       //   path: 'pageManger',
       //   component: () => import('../views/devicesView/PageMangerView.vue')
       // }
     ]
   },
-  { path: '/:pathMatch(.*)*', name: '404',component: () => import('../views/404.vue') },
-  
+  { path: '/:pathMatch(.*)*', name: '404', component: () => import('../views/404Page.vue') }
+
 ]
 
 const router = createRouter({

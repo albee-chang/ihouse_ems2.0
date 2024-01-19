@@ -17,7 +17,7 @@
             >
             <input
               type="text"
-              class="form-control"  
+              class="form-control"
               id="exampleFormControlInput1"
               placeholder="請輸入ID、名稱"
             />
@@ -34,7 +34,8 @@
             <label for="country2" class="form-label">啟用狀態</label>
             <select class="form-select" id="country2" required="">
               <option value="">請選擇啟用狀態</option>
-              <option>United States</option>
+              <option value="enable">啟用中</option>
+              <option value="disable">停用中</option>
             </select>
             <div class="invalid-feedback">Please select a valid country.</div>
           </div>
@@ -42,7 +43,8 @@
             <label for="country2" class="form-label">連線狀態</label>
             <select class="form-select" id="country2" required="">
               <option value="">請選擇連線狀態</option>
-              <option>United States</option>
+              <option value="enable">連線中</option>
+              <option value="disable">未連線</option>
             </select>
             <div class="invalid-feedback">Please select a valid country.</div>
           </div>
@@ -108,13 +110,15 @@
               <option>停用中</option>
             </select>
                 </td>
-                
+
                 <td>連線中</td>
                 <td>
                   <div class="ps-2">
                     <button
                       type="button"
                       class="btn btn-outline-primary border-0 fw-semibold"
+                      data-bs-toggle="offcanvas"
+                      data-bs-target="#offcanvasExample"
                     >
                       編輯
                     </button>
@@ -151,7 +155,7 @@
     </div>
     <div class="title-word mt-1">
       <span class="colr-block"></span>
-      <h2 class="mb-0 fw-semibold">建立新帳號</h2>
+      <h2 class="mb-0 fw-semibold">新增裝置</h2>
     </div>
     <div class="offcanvas-body">
       <form class="needs-validation" novalidate="">

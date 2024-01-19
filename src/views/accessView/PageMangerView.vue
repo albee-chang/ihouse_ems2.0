@@ -141,7 +141,7 @@
                       class="btn btn-outline-primary border-0 fw-semibold"
                       type="button"
                       data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
+                      data-bs-target="#editPageModel"
                     >
                       編輯
                     </button>
@@ -164,10 +164,10 @@
   <!-- Modal -->
   <div
     class="modal fade"
-    id="exampleModal"
+    id="editPageModel"
     data-bs-backdrop="static"
     tabindex="-1"
-    aria-labelledby="exampleModalLabel"
+    aria-labelledby="editPageModelLabel"
     aria-hidden="true"
   >
     <div class="modal-dialog modal-dialog-centered">
