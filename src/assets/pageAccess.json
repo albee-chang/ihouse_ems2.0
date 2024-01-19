@@ -1,0 +1,126 @@
+{
+  "userDatas": [
+    {
+      "id": "1",
+      "photo": "/src/assets/image/head/Ellipse599.png",
+      "department": "總管理部",
+      "title": "總經理",
+      "name": "王柏宏",
+      "phone": "0912345678",
+      "account": "Trunk234",
+      "password" : "123",
+      "systemAccess": "Admin",
+      "pageAccess": ["首頁", "用電分析", "目標管理", "能源管理", "人流監控"]
+    },
+    {
+      "id": "2",
+      "photo": "/src/assets/image/head/Ellipse600.png",
+      "department": "工環部",
+      "title": "製造主管",
+      "name": "毛恩桂",
+      "phone": "0912358392",
+      "account": "Capt.677",
+      "password" : "123",
+      "systemAccess": "editor",
+      "pageAccess": ["用電分析", "目標管理", "能源管理", "人流監控"]
+    },
+    {
+      "id": "3",
+      "photo": "/src/assets/image/head/Ellipse601.png",
+      "department": "資材部",
+      "title": "營運經理",
+      "name": "吳雅裕",
+      "phone": "0988938573",
+      "account": "Tony822",
+      "password" : "123",
+      "systemAccess": "onlyView",
+      "pageAccess": ["用電分析", "目標管理", "能源管理", "人流監控"]
+    },
+    {
+      "id": "4",
+      "photo": "/src/assets/image/head/Ellipse602.png",
+      "department": "資材部",
+      "title": "營運經理",
+      "name": "吳建霖",
+      "phone": "0989828172",
+      "account": "Mike123",
+      "password" : "123",
+      "systemAccess": "onlyView",
+      "pageAccess": ["用電分析", "目標管理", "能源管理", "人流監控"]
+    },
+    {
+      "id": "5",
+      "photo": "/src/assets/image/head/Ellipse603.png",
+      "department": "生產部",
+      "title": "生產管理人員",
+      "name": "連維利",
+      "phone": "0912385982",
+      "account": "Templeton51",
+      "password" : "123",
+      "systemAccess": "onlyView",
+      "pageAccess": ["用電分析", "目標管理", "能源管理", "人流監控"]
+    },
+    {
+      "id": "6",
+      "photo": "/src/assets/image/head/Ellipse604.png",
+      "department": "生產部",
+      "title": "生產技術",
+      "name": "程祐心",
+      "phone": "0935839182",
+      "account": "Devon677",
+      "password" : "123",
+      "systemAccess": "onlyView",
+      "pageAccess": ["用電分析", "目標管理", "能源管理", "人流監控"]
+    },
+    {
+      "id": "7",
+      "photo": "/src/assets/image/head/Ellipse601.png",
+      "department": "開發部",
+      "title": "專案工程師",
+      "name": "王曼西",
+      "phone": "0966839182",
+      "account": "Mike566",
+      "password" : "123",
+      "systemAccess": "onlyView",
+      "pageAccess": ["用電分析", "目標管理", "能源管理", "人流監控"]
+    },
+    {
+      "id": "8",
+      "photo": "/src/assets/image/head/Ellipse607.png",
+      "department": "開發部",
+      "title": "專案工程師",
+      "name": "李昭維",
+      "phone": "0923183929",
+      "account": "Angu233",
+      "password" : "123",
+      "systemAccess": "onlyView",
+      "pageAccess": ["用電分析", "目標管理", "能源管理", "人流監控"]
+    },
+    {
+      "id": "9",
+      "photo": "/src/assets/image/head/Ellipse607.png",
+      "department": "開發部",
+      "title": "專案工程師",
+      "name": "劉寶桓",
+      "phone": "0988938573",
+      "account": "Tony822",
+      "password" : "123",
+      "systemAccess": "deactivate",
+      "pageAccess": ["用電分析", "目標管理", "能源管理", "人流監控"]
+    },
+    {
+      "id": "10",
+      "photo": "/src/assets/image/head/Ellipse608.png",
+      "department": "開發部",
+      "title": "專案工程師",
+      "name": "陳曉明",
+      "phone": "0988938573",
+      "account": "Tony822",
+      "password" : "123",
+      "systemAccess": "deactivate",
+      "pageAccess": ["用電分析", "目標管理", "能源管理", "人流監控"]
+    }
+  ],
+  "departments": ["總管理部","工環部", "資材部", "生產部", "開發部"],
+  "titles": ["總經理","製造主管", "營運經理", "生產管理人員", "生產技術", "專案工程師"]
+}

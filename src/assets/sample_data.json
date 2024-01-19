@@ -1,0 +1,59 @@
+{
+  "records": [
+    {
+      "id": 1,
+      "pageIcon": "icon1",
+      "pageName": "首頁",
+      "create": "https://i.imgur.com/1zYQZ3U.jpg",
+      "shareUser": [
+        "https://i.imgur.com/1zYQZ3U.jpg",
+        "https://i.imgur.com/1zYQZ3U.jpg",
+        "https://i.imgur.com/1zYQZ3U.jpg"
+      ]
+    },
+    {
+      "id": 2,
+      "pageIcon": "icon2",
+      "pageName": "目標管理",
+      "create": "https://i.imgur.com/1zYQZ3U.jpg",
+      "shareUser": [
+        "https://i.imgur.com/1zYQZ3U.jpg",
+        "https://i.imgur.com/1zYQZ3U.jpg",
+        "https://i.imgur.com/1zYQZ3U.jpg"
+      ]
+    },
+    {
+      "id": 3,
+      "pageIcon": "icon3",
+      "pageName": "用電管理",
+      "create": "https://i.imgur.com/1zYQZ3U.jpg",
+      "shareUser": [
+        "https://i.imgur.com/1zYQZ3U.jpg",
+        "https://i.imgur.com/1zYQZ3U.jpg",
+        "https://i.imgur.com/1zYQZ3U.jpg"
+      ]
+    },
+    {
+      "id": 4,
+      "pageIcon": "icon4",
+      "pageName": "能源管理",
+      "create": "https://i.imgur.com/1zYQZ3U.jpg",
+      "shareUser": [
+        "https://i.imgur.com/1zYQZ3U.jpg",
+        "https://i.imgur.com/1zYQZ3U.jpg",
+        "https://i.imgur.com/1zYQZ3U.jpg"
+      ]
+    },
+    {
+      "id": 5,
+      "pageIcon": "icon5",
+      "pageName": "人流監控",
+      "create": "https://i.imgur.com/1zYQZ3U.jpg",
+      "shareUser": [
+        "https://i.imgur.com/1zYQZ3U.jpg",
+        "https://i.imgur.com/1zYQZ3U.jpg",
+        "https://i.imgur.com/1zYQZ3U.jpg"
+      ]
+    }
+  ]
+}

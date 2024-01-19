@@ -1,0 +1,104 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "point_id": "Vavg",
+      "point_name": "MP_Electricity_Vavg",
+      "point_type": "AI_FLOAT",
+      "reg": "1416",
+      "method": "3",
+      "status": true,
+      "value": 0
+    },
+    {
+      "id": "2",
+      "point_id": "V3",
+      "point_name": "MP_Electricity_V3",
+      "point_type": "AI_FLOAT",
+      "reg": "1414",
+      "method": "3",
+      "status": true,
+      "value": 0
+    },
+    {
+      "id": "3",
+      "point_id": "V2",
+      "point_name": "MP_Electricity_V2",
+      "point_type": "AI_FLOAT",
+      "reg": "1420",
+      "method": "3",
+      "status": true,
+      "value": 0
+    },
+    {
+      "id": "4",
+      "point_id": "V1",
+      "point_name": "MP_Electricity_V1",
+      "point_type": "AI_FLOAT",
+      "reg": "1422",
+      "method": "3",
+      "status": false,
+      "value": 0
+    },
+    {
+      "id": "5",
+      "point_id": "kWh",
+      "point_name": "MP_Electricity_kWh",
+      "point_type": "AI_FLOAT",
+      "reg": "1424",
+      "method": "3",
+      "status": true,
+      "value": 0
+    },
+    {
+      "id": "6",
+      "point_id": "IC",
+      "point_name": "MP_Electricity_IC",
+      "point_type": "AI_FLOAT",
+      "reg": "1426",
+      "method": "3",
+      "status": true,
+      "value": 0
+    },
+    {
+      "id": "7",
+      "point_id": "IB",
+      "point_name": "MP_Electricity_IB",
+      "point_type": "AI_FLOAT",
+      "reg": "1428",
+      "method": "3",
+      "status": false,
+      "value": 0
+    },
+    {
+      "id": "8",
+      "point_id": "lavg",
+      "point_name": "MP_Electricity_lavg",
+      "point_type": "AI_FLOAT",
+      "reg": "1430",
+      "method": "3",
+      "status": true,
+      "value": 0
+    },
+    {
+      "id": "9",
+      "point_id": "IA",
+      "point_name": "MP_Electricity_IA",
+      "point_type": "AI_FLOAT",
+      "reg": "1432",
+      "method": "3",
+      "status": true,
+      "value": 0
+    },
+    {
+      "id": "10",
+      "point_id": "freq",
+      "point_name": "freq",
+      "point_type": "AI_FLOAT",
+      "reg": "1434",
+      "method": "3",
+      "status": true,
+      "value": 0
+    }
+  ]
+}
