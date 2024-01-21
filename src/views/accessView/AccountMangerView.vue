@@ -13,7 +13,7 @@
       </li>
     </ul>
     <section class="bg-white-box mb-2">
-      <form class="d-flex justify-content-between align-items-end">
+      <VForm class="d-flex justify-content-between align-items-end">
         <div class="d-flex gap-2">
           <div class="">
             <label for="exampleFormControlInput1" class="form-label"
@@ -27,37 +27,61 @@
             />
           </div>
           <div class="">
-            <label for="country" class="form-label">單位</label>
-            <select class="form-select" id="country" required>
-              <option value="">請選擇單位</option>
-              <option>United States</option>
-            </select>
+            <label for="search-department" class="form-label">單位</label>
+            <VField
+                id="search-department"
+                name="department"
+                as="select"
+                class="form-select"
+                required
+                rules="required"
+              >
+                <option value="" disabled>請選擇單位</option>
+                <option
+                  v-for="department in departments"
+                  :key="department"
+                  :value="department"
+                >
+                  {{ department }}
+                </option>
+              </VField>
+
+              <ErrorMessage
+                as="p"
+                class="invalid-feedback d-block mb-0"
+                name="department"
+              />
           </div>
           <div class="">
-            <label for="country2" class="form-label">職稱</label>
-            <select class="form-select" id="country2" required>
-              <option value="">請選擇職稱</option>
-              <option>總管理部</option>
-            </select>
+            <label for="search-title" class="form-label">職稱</label>
+            <VField
+                id="search-title"
+                name="title"
+                as="select"
+                class="form-select"
+                required
+                rules="required"
+              >
+                <option value="" disabled>請選擇職稱</option>
+                <option v-for="title in titles" :key="title" :value="title">
+                  {{ title }}
+                </option>
+              </VField>
+
+              <ErrorMessage
+                as="p"
+                class="invalid-feedback d-block mb-0"
+                name="職稱"
+              />
           </div>
         </div>
         <div class="d-flex gap-2">
-          <button
-            type="submit"
-            class="btn btn-outline-gray fw-semibold"
-            @click="clearBtn()"
-          >
+          <button type="submit" class="btn btn-outline-gray fw-semibold">
             清除
           </button>
-          <button
-            type="submit"
-            class="btn btn-gray fw-semibold"
-            @click="searchBtn()"
-          >
-            搜尋
-          </button>
+          <button type="submit" class="btn btn-gray fw-semibold">搜尋</button>
         </div>
-      </form>
+      </VForm>
     </section>
     <section>
       <div class="d-flex justify-content-between align-items-end mb-2">
@@ -67,9 +91,8 @@
           <button
             class="btn btn-outline-primary fw-semibold"
             type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#accountEditOffcanvas"
-            aria-controls="accountEditOffcanvas"
+            aria-controls="staticBackdrop"
+            @click="editAccount(tempObject, 'new')"
           >
             建立新帳號
           </button>
@@ -86,7 +109,7 @@
                   <p class="border-start border-2 ps-2 mb-0">頭像</p>
                 </th>
                 <th scope="col">單位</th>
-                <th scope="col">職稱</th>
+                <th scope="col">單位</th>
                 <th scope="col">姓名</th>
                 <th scope="col">電話</th>
                 <th scope="col">帳號</th>
@@ -112,11 +135,11 @@
                 <td>{{ userData.name }}</td>
                 <td>{{ userData.phone }}</td>
                 <td>{{ userData.account }}</td>
-                <td>{{ getSystemAccessDisplay(userData.systemAccess) }}</td>
+                <td>{{ getSystemAccess (userData.systemAccess) }}</td>
                 <td>
                   <p class="ps-2 mb-0">
                     <template v-for="(item, index) in userData.pageAccess">
-                      {{ index > 0 ? "、" : "" }}{{ item }}
+                      {{ index > 0 ? "、" : "" }}{{ item.page }}
                     </template>
                   </p>
                 </td>
@@ -125,7 +148,8 @@
                     <button
                       type="button"
                       class="btn btn-outline-primary border-0 fw-semibold"
-                      @click="editBtn(userData)"
+                      aria-controls="staticBackdrop"
+                      @click="editAccount(userData, 'edit')"
                     >
                       編輯
                     </button>
@@ -145,7 +169,6 @@
       </div>
     </section>
   </div>
-
   <!-- Delete Modal -->
   <div
     class="modal fade"
@@ -200,84 +223,64 @@
   <AccountEdit
     :titles="titles"
     :departments="departments"
+    :system-accesss="systemAccesss"
+    :is-new="isNew"
+    :temp-object="tempObject"
     :add-modal-element="addModalElement"
-    @close="closeAccountEdit"
+    :account-edit-element="accountEditElement"
   ></AccountEdit>
 </template>
-
 <script setup>
-import data from '../../assets/pageAccess.json'
-
+import data from '../../assets/sampleData.json'
 import AccountEdit from '@/components/AccountEditOffcanvas.vue'
+import Swal from 'sweetalert2'
 import { ref, onMounted } from 'vue'
 import * as bootstrap from 'bootstrap'
-const { userDatas, departments, titles } = data
+const { userDatas, departments, titles, systemAccesss } = data
 const userDatasRef = ref(userDatas)
 const tempArray = ref(null)
-// function onSubmit (values) {
-//   console.log(values)
-// }
+const isNew = ref(null)
+const tempObject = ref(null)
+const addModalElement = ref(null)
+const accountEditElement = ref(null)
+const delUserModalElement = ref(null)
 
-// 判斷權限角色
-function getSystemAccessDisplay (access) {
+function getSystemAccess (access) {
   switch (access) {
     case 'Admin':
       return '系統管理員'
-    case 'editor':
-      return '編輯者'
+    case 'editable':
+      return '可編輯'
     case 'onlyView':
       return '僅檢視'
+    case 'deactivate':
+      return '停用中'
     default:
-      return '無' // 其他想要的預設值
+      return access
   }
 }
-const addModalElement = ref(null)
-const delUserModalElement = ref(null)
-// const addForm = ref(null)
-// function addData () {
-//   addAray.value.push(newData.value)
-//   addModalElement.value.hide()
-//   newData.value = null
-// }
-// function handleDataAdjusted (dataAdjusted) {
-//   const { arrayName, adjustedArray } = dataAdjusted
-//   switch (arrayName) {
-//     case 'title':
-//       titlesRef.value = adjustedArray
-//       break
-//     case 'department':
-//       departmentsRef.value = adjustedArray
-//       break
-//     default:
-//       console.error(dataAdjusted)
-//       break
-//   }
-//   addModalElement.value.hide()
-// }
-// function addModal (addType) {
-//   addModalElement.value.show()
-//   if (addType === 'title') {
-//     arrayName.value = 'title'
-//     tempArray.value = [...titlesRef.value]
-//   } else {
-//     arrayName.value = 'department'
-//     tempArray.value = [...departmentsRef.value]
-//   }
-// }
 
-// 開啟編輯帳號 AccountEdit 元件
-function editBtn (item) {
-  console.log(item)
-  // addModalElement.value.show()
-  // if (addType === 'title') {
-  //   arrayName.value = 'title'
-  //   tempArray.value = [...titlesRef.value]
-  // } else {
-  //   arrayName.value = 'department'
-  //   tempArray.value = [...departmentsRef.value]
-  // }
+function editAccount (object, modalStatus) {
+  if (modalStatus === 'new') {
+    isNew.value = true
+    tempObject.value = {
+      account: '',
+      name: '',
+      phone: '',
+      department: '',
+      title: '',
+      systemAccess: '',
+      pageAccess: [{
+        page: '',
+        access: ''
+      }]
+    }
+  } else {
+    isNew.value = false
+    tempObject.value = { ...object }
+  }
+  accountEditElement.value.show()
 }
-
 function delUserBtn (item) {
   delUserModalElement.value.show()
   tempArray.value = { ...item }
@@ -289,9 +292,19 @@ function checkDelUser (id) {
   )
   tempArray.value = null
   delUserModalElement.value.hide()
+  Swal.fire({
+    icon: 'success',
+    title: '已刪除',
+    showConfirmButton: false,
+    timer: 2000
+  })
 }
-
 onMounted(() => {
+  accountEditElement.value = new bootstrap.Offcanvas('#accountEditOffcanvas',
+    {
+      keyboard: false
+    }
+  )
   addModalElement.value = new bootstrap.Modal(
     document.querySelector('#addModal'),
     {

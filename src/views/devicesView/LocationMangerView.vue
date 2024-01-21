@@ -2,14 +2,10 @@
   <div class="container">
     <ul class="list-unstyled d-flex page-box mb-4">
       <li class="page-item">
-        <router-link to="/devices/devicesManger" class="page-link fs-4"
-          >裝置列表</router-link
-        >
+        <router-link to="/devices/devicesManger" class="page-link  fs-4">裝置列表</router-link>
       </li>
       <li class="page-item">
-        <router-link to="/devices/locationManger" class="page-link fs-4"
-          >點位列表</router-link
-        >
+        <router-link to="/devices/locationManger" class="page-link fs-4">點位列表</router-link>
       </li>
     </ul>
     <section class="bg-white-box mb-2">
@@ -27,24 +23,24 @@
             />
           </div>
           <div class="">
-            <label for="device" class="form-label">裝置</label>
-            <select class="form-select" id="device" required="">
+            <label for="country" class="form-label">裝置</label>
+            <select class="form-select" id="country" required="">
               <option value="">請選擇裝置</option>
               <option>United States</option>
             </select>
             <div class="invalid-feedback">Please select a valid country.</div>
           </div>
           <div class="">
-            <label for="point_type" class="form-label">點位類型</label>
-            <select class="form-select" id="point_type" required="">
+            <label for="country2" class="form-label">點位類型</label>
+            <select class="form-select" id="country2" required="">
               <option value="">請選擇狀態</option>
               <option>United States</option>
             </select>
             <div class="invalid-feedback">Please select a valid country.</div>
           </div>
           <div class="">
-            <label for="status" class="form-label">狀態</label>
-            <select class="form-select" id="status" required="">
+            <label for="country2" class="form-label">狀態</label>
+            <select class="form-select" id="country2" required="">
               <option value="">請選擇狀態</option>
               <option>United States</option>
             </select>
@@ -64,8 +60,9 @@
     <section>
       <div class="d-flex justify-content-between align-items-end mb-2">
         <h4 class="fw-semibold">列表</h4>
-        <div class="d-flex gap-2 align-items-center me-2">
-          <p class="mb-0 me-2">共計： {{ data }} 筆</p>
+        <div class="d-flex gap-2 align-items-center me-2 mt-1 mb-2">
+          <p class="mb-0 me-2">共計：12 筆</p>
+
         </div>
       </div>
       <!-- table area -->
@@ -97,19 +94,21 @@
                 <td>AI_FLOAT</td>
                 <td>1416</td>
                 <td>3</td>
-                <td>連線中</td>
+                <td>
+                  連線中
+                </td>
                 <td>0</td>
                 <td>
                   <div class="ps-2">
                     <button
-                      class="btn btn-outline-primary border-0 fw-semibold"
-                      type="button"
-                      data-bs-toggle="offcanvas"
-                      data-bs-target="#deviceEditOffcanvas"
-                      aria-controls="deviceEditOffcanvas"
-                    >
-                      編輯
-                    </button>
+            class="btn btn-outline-primary border-0 fw-semibold"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasExample"
+            aria-controls="offcanvasExample"
+          >
+          編輯
+          </button>
                   </div>
                 </td>
               </tr>
@@ -119,13 +118,13 @@
       </div>
     </section>
   </div>
-  <!-- 編輯裝置的 offcanvas  -->
+
   <div
     class="offcanvas offcanvas-end account-offcanvas"
     tabindex="-1"
     data-bs-backdrop="staticSS"
-    id="deviceEditOffcanvas"
-    aria-labelledby="deviceEditOffcanvasLabel"
+    id="offcanvasExample"
+    aria-labelledby="offcanvasExampleLabel"
   >
     <div class="offcanvas-header justify-content-end">
       <button
@@ -137,209 +136,174 @@
     </div>
     <div class="title-word mt-1">
       <span class="colr-block"></span>
-      <h2 class="mb-0 fw-semibold">編輯點位</h2>
+      <h2 class="mb-0 fw-semibold">編輯點位 </h2>
     </div>
     <div class="offcanvas-body">
-      <div class="title-word my-2 justify-content-between">
-        <h4 class="mb-0 fw-semibold">對應點位</h4>
-          <button class="btn btn-outline-primary">新增節點</button>
-      </div>
-      <!-- table area -->
-      <div class="table-responsive">
-        <table class="table table-hover">
-          <thead class="table-head">
-            <tr>
-              <th scope="col">點位ID</th>
-              <th scope="col">點位類型</th>
-              <th scope="col">起始暫存器</th>
-              <th scope="col">功能碼</th>
-              <th scope="col">交換模式</th>
-              <th scope="col"><p class="border-start border-2 ps-2 mb-0">操作</p></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>t</td>
-              <td>float</td>
-              <td>—</td>
-              <td>—</td>
-              <td>—</td>
-              <td>
-                <button
-                  type="button"
-                  class="btn text-primary text-sm"
-                  data-bs-toggle="modal"
-                  data-bs-target="#editNodeModal"
-                >
-                  編輯
-                </button>
-                <button type="button" class="btn text-danger text-sm">
-                  刪除
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>h</td>
-              <td>str</td>
-              <td>—</td>
-              <td>—</td>
-              <td>—</td>
-              <td>
-                <button type="button" class="btn text-primary text-sm">
-                  編輯
-                </button>
-                <button type="button" class="btn text-danger text-sm">
-                  刪除
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>do</td>
-              <td>dio</td>
-              <td>—</td>
-              <td>—</td>
-              <td>—</td>
-              <td>
-                <button type="button" class="btn text-primary text-sm">
-                  編輯
-                </button>
-                <button type="button" class="btn text-danger text-sm">
-                  刪除
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <!-- 編輯節點 Modal  -->
-  <div
-    class="modal fade"
-    id="editNodeModal"
-    data-bs-backdrop="static"
-    tabindex="-1"
-    aria-labelledby="editNodeModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content bg-white-box">
-        <div class="modal-header border-0 justify-content-around">
-          <div class="title-word mt-1">
-            <span class="colr-block"></span>
-            <h2 class="mb-0 fw-semibold">編輯節點</h2>
+      <form class="needs-validation" novalidate="">
+        <div class="row g-3">
+          <div class="col-8">
+            <label for="account" class="form-label">帳號：</label>
+            <input
+              type="text"
+              class="form-control"
+              id="account"
+              value=""
+              required=""
+              placeholder="請輸入帳號"
+            />
+            <div class="invalid-feedback">Account is required.</div>
           </div>
-          <button
-            type="button"
-            class="btn-close rounded-5 bg-gray"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+          <div class="col-8">
+            <label for="name" class="form-label">姓名：</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              placeholder="請輸入姓名"
+            />
+            <div class="invalid-feedback">Name is required.</div>
+          </div>
+          <div class="col-8">
+            <label for="tel" class="form-label">電話：</label>
+            <input
+              type="tel"
+              class="form-control"
+              id="tel"
+              placeholder="請輸入電話"
+            />
+            <div class="invalid-feedback">
+              Please enter a valid email address for shipping updates.
+            </div>
+          </div>
+          <div class="col-12 d-flex align-items-end gap-2">
+            <div class="col-8">
+              <label for="department" class="form-label">單位：</label>
+              <select class="form-select" id="department" required="">
+                <option value="">請選擇單位</option>
+                <option>United States</option>
+              </select>
+              <div class="invalid-feedback">
+                Please select a valid department.
+              </div>
+            </div>
+            <div class="col-4">
+              <button
+                type="button"
+                class="btn btn-outline-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+              >
+                建立新單位
+              </button>
+            </div>
+          </div>
+          <div class="col-12 d-flex align-items-end gap-2">
+            <div class="col-8">
+              <label for="title" class="form-label">職稱：</label>
+              <select class="form-select" id="title" required="">
+                <option value="">請選擇職稱</option>
+                <option>United States</option>
+              </select>
+              <div class="invalid-feedback">Please select a valid title.</div>
+            </div>
+            <div class="col-4">
+              <button
+                type="button"
+                class="btn btn-outline-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+              >
+                建立新職稱
+              </button>
+            </div>
+          </div>
+          <div class="col-8">
+            <label for="system-access" class="form-label">系統權限：</label>
+            <select class="form-select" id="system-access" required="">
+              <option value="">請選擇權限</option>
+              <option>United States</option>
+            </select>
+            <div class="invalid-feedback">Please select a valid country.</div>
+          </div>
         </div>
-        <div class="modal-body">
-          <div class="row g-3 mb-2">
-            <div class="col-6">
-              <label class="form-label">點位ID：</label>
-              <div class="input-group">
-                <input
-                  type="text"
-                  class="form-control"
-                  value="tempSetting"
-                  readonly
-                />
-              </div>
-            </div>
-            <div class="col-6">
-              <label class="form-label">起始暫存器：</label>
-              <div class="input-group">
-                <input type="text" class="form-control" value="6003" readonly />
-              </div>
-            </div>
+
+        <hr class="my-4" />
+        <h3>頁面權限</h3>
+        <div class="col-12 d-flex align-items-end gap-2">
+          <div class="col-8">
+            <select class="form-select" id="country" required="">
+              <option value="">Choose...</option>
+              <option>United States</option>
+            </select>
+            <div class="invalid-feedback">Please select a valid country.</div>
           </div>
-          <div class="row g-3 mb-2">
-            <div class="col">
-              <label class="form-label">類型：</label>
-              <select class="form-select">
-                <option selected>浮點數</option>
-              </select>
-            </div>
-            <div class="col">
-              <label class="form-label">Swap Mode：</label>
-              <select class="form-select">
-                <option selected>不調換順序（整數轉換）</option>
-              </select>
-            </div>
+          <div class="col-4">
+            <select class="form-select" id="country" required="">
+              <option value="">Choose...</option>
+              <option>United States</option>
+            </select>
           </div>
-          <div class="row g-3 mb-2">
-            <div class="col">
-              <label class="form-label">Function Code：</label>
-              <select class="form-select">
-                <option selected>3</option>
-              </select>
-            </div>
-            <div class="col">
-              <label class="form-label">除數：</label>
-              <select class="form-select">
-                <option selected>1</option>
-              </select>
-            </div>
-          </div>
-          <div class="row g-3 mb-2">
-            <div class="col">
-              <label class="form-label">Reverse：</label>
-              <select class="form-select" disabled>
-                <option value="">請選擇Reverse</option>
-              </select>
-            </div>
-            <div class="col">
-              <label class="form-label">虛擬節點類型：</label>
-              <select class="form-select" disabled>
-                <option value="">請選擇類型</option>
-              </select>
-            </div>
-          </div>
-          <div class="row g-3 mb-2">
-            <div class="col">
-              <label class="form-label">資料長度：</label>
-              <select class="form-select">
-                <option selected>1</option>
-              </select>
-            </div>
-            <div class="col">
-              <label class="form-label">資料刷新時間(ms)：</label>
-              <select class="form-select">
-                <option selected>1000</option>
-              </select>
-            </div>
-          </div>
+        </div>
+        <div class="col-4">
+          <button type="button" class="btn btn-outline-gray">新增頁面</button>
         </div>
         <div class="mt-5 text-center">
           <button class="btn btn-primary w-50" type="submit">下一步</button>
         </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="exampleModal"
+    data-bs-backdrop="static"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-white-box">
+        <div class="modal-header border-0">
+          <div class="title-word">
+            <span class="colr-block"></span>
+            <h2 class="mb-0 fw-semibold">建立新單位</h2>
+          </div>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+
+        <div class="modal-body">
+          <!-- Input field in the modal body -->
+          <div class="mb-3">
+            <label for="inputField" class="form-label">單位名稱：</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputField"
+              placeholder="請輸入單位名稱"
+            />
+          </div>
+          <div class="text-center">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              儲存
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <!-- 編輯節點 Modal 結束  -->
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import * as bootstrap from 'bootstrap'
-const addModalElement = ref(null)
-const delUserModalElement = ref(null)
-onMounted(() => {
-  addModalElement.value = new bootstrap.Modal(
-    document.querySelector('#addModal'),
-    {
-      keyboard: false
-    }
-  )
-  delUserModalElement.value = new bootstrap.Modal(
-    document.querySelector('#delUserModal'),
-    {
-      keyboard: false
-    }
-  )
-})
+
 </script>

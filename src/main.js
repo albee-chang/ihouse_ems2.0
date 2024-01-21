@@ -35,7 +35,6 @@ localize('zh_TW', twValidations)
 app.component('VField', Field)
 app.component('VForm', Form)
 app.component('ErrorMessage', ErrorMessage)
-
 const options = {
   confirmButtonColor: '#41b882',
   cancelButtonColor: '#ff7674'

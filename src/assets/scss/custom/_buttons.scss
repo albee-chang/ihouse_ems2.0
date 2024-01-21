@@ -157,6 +157,10 @@
         $value,
         $value,
         $color: $white,
+        $hover-background: tint-color($value, $btn-hover-bg-tint-amount),
+        $hover-border: tint-color($value, $btn-hover-border-tint-amount),
+        $active-background: tint-color($value, $btn-active-bg-tint-amount),
+        $active-border: tint-color($value, $btn-active-border-tint-amount)
       );
     } @else {
       @include button-variant($value, $value);

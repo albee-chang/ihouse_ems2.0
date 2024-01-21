@@ -2,7 +2,7 @@
   "userDatas": [
     {
       "id": "1",
-      "photo": "/src/assets/image/head/Ellipse599.png",
+      "photo": "https://i.imgur.com/1zYQZ3U.jpg",
       "department": "總管理部",
       "title": "總經理",
       "name": "王柏宏",
@@ -14,7 +14,7 @@
     },
     {
       "id": "2",
-      "photo": "/src/assets/image/head/Ellipse600.png",
+      "photo": "https://i.imgur.com/1zYQZ3U.jpg",
       "department": "工環部",
       "title": "製造主管",
       "name": "毛恩桂",
@@ -26,7 +26,7 @@
     },
     {
       "id": "3",
-      "photo": "/src/assets/image/head/Ellipse601.png",
+      "photo": "https://i.imgur.com/1zYQZ3U.jpg",
       "department": "資材部",
       "title": "營運經理",
       "name": "吳雅裕",
@@ -38,7 +38,7 @@
     },
     {
       "id": "4",
-      "photo": "/src/assets/image/head/Ellipse602.png",
+      "photo": "https://i.imgur.com/1zYQZ3U.jpg",
       "department": "資材部",
       "title": "營運經理",
       "name": "吳建霖",
@@ -50,7 +50,7 @@
     },
     {
       "id": "5",
-      "photo": "/src/assets/image/head/Ellipse603.png",
+      "photo": "https://i.imgur.com/1zYQZ3U.jpg",
       "department": "生產部",
       "title": "生產管理人員",
       "name": "連維利",
@@ -62,7 +62,7 @@
     },
     {
       "id": "6",
-      "photo": "/src/assets/image/head/Ellipse604.png",
+      "photo": "https://i.imgur.com/1zYQZ3U.jpg",
       "department": "生產部",
       "title": "生產技術",
       "name": "程祐心",
@@ -74,7 +74,7 @@
     },
     {
       "id": "7",
-      "photo": "/src/assets/image/head/Ellipse601.png",
+      "photo": "https://i.imgur.com/1zYQZ3U.jpg",
       "department": "開發部",
       "title": "專案工程師",
       "name": "王曼西",
@@ -86,7 +86,7 @@
     },
     {
       "id": "8",
-      "photo": "/src/assets/image/head/Ellipse607.png",
+      "photo": "https://i.imgur.com/1zYQZ3U.jpg",
       "department": "開發部",
       "title": "專案工程師",
       "name": "李昭維",
@@ -98,7 +98,7 @@
     },
     {
       "id": "9",
-      "photo": "/src/assets/image/head/Ellipse607.png",
+      "photo": "https://i.imgur.com/1zYQZ3U.jpg",
       "department": "開發部",
       "title": "專案工程師",
       "name": "劉寶桓",
@@ -110,7 +110,7 @@
     },
     {
       "id": "10",
-      "photo": "/src/assets/image/head/Ellipse608.png",
+      "photo": "https://i.imgur.com/1zYQZ3U.jpg",
       "department": "開發部",
       "title": "專案工程師",
       "name": "陳曉明",

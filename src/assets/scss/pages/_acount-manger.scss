@@ -55,19 +55,25 @@ th, td{
     vertical-align: middle;
 }
 .account-offcanvas{
-    min-width: 50%;
+    // min-width: 948px;
     padding-top:24px;
     padding-bottom: 40px;
     padding-left: 92px;
-    .offcanvas-body{
-        max-width: 680px;
-        margin-right: 32px;
-        padding-right: 180px;
-    }
+    // .offcanvas-body{
+    //     max-width: 480px;
+    // }
     .form-label{
         margin-bottom: 5px;
         font-size: 14px;
     }
+}
+
+.select-lable-aligin{
+    align-items: end!important;
+    &:has(.invalid-feedback) {
+        align-items: center !important;
+
+  }
 }
 
 @include media-breakpoint-down(md){

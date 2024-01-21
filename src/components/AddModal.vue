@@ -46,8 +46,8 @@
             <div class="text-center">
               <button
                 type="submit"
-                class="fw-semibold"
-                :class="['btn', !newData ? 'btn-gray' : 'btn-primary']"
+                class="fw-semibold btn"
+                :class="[!newData ? 'btn-gray' : 'btn-primary']"
                 :disabled="!newData"
               >
                 儲存
@@ -66,8 +66,9 @@ import { ref, watchEffect } from 'vue'
 const props = defineProps(['tempArray', 'arrayName'])
 const emit = defineEmits(['dataAdjusted'])
 const newData = ref(null)
-const typeName = ref('')
-const placeholder = ref('')
+const typeName = ref(null)
+const placeholder = ref(null)
+const addForm = ref(null)
 
 function getTypeNames (name) {
   switch (name) {
@@ -84,7 +85,7 @@ function getTypeNames (name) {
 function addData () {
   const adjustedArray = [...props.tempArray, newData.value]
   emit('dataAdjusted', { arrayName: props.arrayName, adjustedArray })
-  newData.value = null
+  addForm.value.resetForm()
 }
 watchEffect(() => {
   getTypeNames(props.arrayName)

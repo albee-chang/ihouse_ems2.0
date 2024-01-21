@@ -1,0 +1,229 @@
+{
+  "userDatas": [
+    {
+      "id": "1",
+      "photo": "https://i.imgur.com/nhEHYuu.png",
+      "department": "總管理部",
+      "title": "總經理",
+      "name": "王柏宏",
+      "phone": "0975938192",
+      "account": "Trunk234",
+      "password": "123",
+      "systemAccess": "Admin",
+      "pageAccess": [
+        { "page": "首頁", "access": "editable" },
+        { "page": "用電分析", "access": "editable" },
+        { "page": "目標管理", "access": "onlyView" },
+        { "page": "能源管理", "access": "onlyView" },
+        { "page": "人流監控", "access": "onlyView" }
+      ]
+    },
+    {
+      "id": "2",
+      "photo": "https://i.imgur.com/jLYwXjm.png",
+      "department": "工環部",
+      "title": "製造主管",
+      "name": "毛恩桂",
+      "phone": "0912358392",
+      "account": "Capt.677",
+      "password": "123",
+      "systemAccess": "editable",
+      "pageAccess": [
+        { "page": "用電分析", "access": "editable" },
+        { "page": "目標管理", "access": "onlyView" },
+        { "page": "能源管理", "access": "onlyView" },
+        { "page": "人流監控", "access": "onlyView" }
+      ]
+    },
+    {
+      "id": "3",
+      "photo": "https://i.imgur.com/tPCtZAX.png",
+      "department": "資材部",
+      "title": "營運經理",
+      "name": "吳雅裕",
+      "phone": "0988938573",
+      "account": "Tony822",
+      "password": "123",
+      "systemAccess": "onlyView",
+      "pageAccess": [
+        { "page": "用電分析", "access": "onlyView" },
+        { "page": "目標管理", "access": "onlyView" },
+        { "page": "能源管理", "access": "onlyView" }
+      ]
+    },
+    {
+      "id": "4",
+      "photo": "https://i.imgur.com/jPttPcC.png",
+      "department": "工環部",
+      "title": "營運主管",
+      "name": "吳建霖",
+      "phone": "0989828172",
+      "account": "Mike123",
+      "password": "123",
+      "systemAccess": "onlyView",
+      "pageAccess": [
+        { "page": "用電分析", "access": "onlyView" },
+        { "page": "目標管理", "access": "onlyView" }
+      ]
+    },
+    {
+      "id": "5",
+      "photo": "https://i.imgur.com/IHa3DAe.png",
+      "department": "生產部",
+      "title": "生產管理人員",
+      "name": "連惟俐",
+      "phone": "0912385982",
+      "account": "Templeton51",
+      "password": "123",
+      "systemAccess": "onlyView",
+      "pageAccess": [
+        { "page": "用電分析", "access": "onlyView" },
+        { "page": "目標管理", "access": "onlyView" }
+      ]
+    },
+    {
+      "id": "6",
+      "photo": "https://i.imgur.com/yPF1lc3.png",
+      "department": "生產部",
+      "title": "生產技術",
+      "name": "程祐辛",
+      "phone": "0935839192",
+      "account": "Devon677",
+      "password": "123",
+      "systemAccess": "onlyView",
+      "pageAccess": [
+        { "page": "用電分析", "access": "onlyView" },
+        { "page": "目標管理", "access": "onlyView" }
+      ]
+    },
+    {
+      "id": "7",
+      "photo": "https://i.imgur.com/EmiXDmN.png",
+      "department": "開發部",
+      "title": "專案工程師",
+      "name": "王曼希",
+      "phone": "0966839182",
+      "account": "Mike566",
+      "password": "123",
+      "systemAccess": "onlyView",
+      "pageAccess": [
+        { "page": "用電分析", "access": "onlyView" },
+        { "page": "目標管理", "access": "onlyView" }
+      ]
+    },
+    {
+      "id": "8",
+      "photo": "https://i.imgur.com/EmiXDmN.png",
+      "department": "開發部",
+      "title": "專案工程師",
+      "name": "李昭惟",
+      "phone": "0923183929",
+      "account": "Angu233",
+      "password": "123",
+      "systemAccess": "onlyView",
+      "pageAccess": [
+        { "page": "用電分析", "access": "onlyView" },
+        { "page": "目標管理", "access": "onlyView" }
+      ]
+    },
+    {
+      "id": "9",
+      "photo": "https://i.imgur.com/0sn0p8M.png",
+      "department": "開發部",
+      "title": "專案工程師",
+      "name": "劉寶桓",
+      "phone": "0985839123",
+      "account": "Thomas666",
+      "password": "123",
+      "systemAccess": "deactivate",
+      "pageAccess": [
+        { "page": "用電分析", "access": "onlyView" },
+        { "page": "目標管理", "access": "onlyView" }
+      ]
+    },
+    {
+      "id": "10",
+      "photo": "https://i.imgur.com/AWBJzKr.png",
+      "department": "-",
+      "title": "-",
+      "name": "-",
+      "phone": "0989285939",
+      "account": "Ahomas666",
+      "password": "123",
+      "systemAccess": "deactivate",
+      "pageAccess": [
+        { "page": "用電分析", "access": "onlyView" },
+        { "page": "目標管理", "access": "onlyView" }
+      ]
+    }
+  ],
+  "departments": ["總管理部", "工環部", "資材部", "生產部", "開發部"],
+  "titles": [
+    "總經理",
+    "製造主管",
+    "營運經理",
+    "生產管理人員",
+    "生產技術",
+    "專案工程師"
+  ],
+  "userPageAccesss":  [
+    {
+      "id": 1,
+      "pageIcon": "icon1",
+      "pageName": "首頁",
+      "create": "https://i.imgur.com/1zYQZ3U.jpg",
+      "shareUser": [
+        "https://i.imgur.com/1zYQZ3U.jpg",
+        "https://i.imgur.com/1zYQZ3U.jpg",
+        "https://i.imgur.com/1zYQZ3U.jpg"
+      ]
+    },
+    {
+      "id": 2,
+      "pageIcon": "icon2",
+      "pageName": "目標管理",
+      "create": "https://i.imgur.com/1zYQZ3U.jpg",
+      "shareUser": [
+        "https://i.imgur.com/1zYQZ3U.jpg",
+        "https://i.imgur.com/1zYQZ3U.jpg",
+        "https://i.imgur.com/1zYQZ3U.jpg"
+      ]
+    },
+    {
+      "id": 3,
+      "pageIcon": "icon3",
+      "pageName": "用電管理",
+      "create": "https://i.imgur.com/1zYQZ3U.jpg",
+      "shareUser": [
+        "https://i.imgur.com/1zYQZ3U.jpg",
+        "https://i.imgur.com/1zYQZ3U.jpg",
+        "https://i.imgur.com/1zYQZ3U.jpg"
+      ]
+    },
+    {
+      "id": 4,
+      "pageIcon": "icon4",
+      "pageName": "能源管理",
+      "create": "https://i.imgur.com/1zYQZ3U.jpg",
+      "shareUser": [
+        "https://i.imgur.com/1zYQZ3U.jpg",
+        "https://i.imgur.com/1zYQZ3U.jpg",
+        "https://i.imgur.com/1zYQZ3U.jpg"
+      ]
+    },
+    {
+      "id": 5,
+      "pageIcon": "icon5",
+      "pageName": "人流監控",
+      "create": "https://i.imgur.com/1zYQZ3U.jpg",
+      "shareUser": [
+        "https://i.imgur.com/1zYQZ3U.jpg",
+        "https://i.imgur.com/1zYQZ3U.jpg",
+        "https://i.imgur.com/1zYQZ3U.jpg"
+      ]
+    }
+  ],
+  "systemAccesss": ["Admin", "editable", "onlyView", "deactivate"],
+  "webPages": ["首頁", "用電分析", "目標管理", "能源管理", "人流監控"],
+  "pageAccesss": ["editable", "onlyView"]
+}
