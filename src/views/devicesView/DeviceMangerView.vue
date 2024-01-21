@@ -65,12 +65,12 @@
           <button
             class="btn btn-outline-primary fw-semibold"
             type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasExample"
-            aria-controls="offcanvasExample"
+            @click="editDevice(tempObject, 'new')"
+
           >
           新增裝置
           </button>
+
         </div>
       </div>
       <!-- table area -->
@@ -87,7 +87,7 @@
                 <th scope="col">裝置類型</th>
                 <th scope="col">連線ID</th>
                 <th scope="col">站號</th>
-                <th scope="col">啟用狀態</th>
+                <th scope="col" class="miw-140">啟用狀態</th>
                 <th scope="col">連線狀態</th>
                 <th scope="col">
                   <p class="border-start border-2 ps-2 mb-0">操作</p>
@@ -95,21 +95,23 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row" class="text-center">1</th>
-                <td>DI_7_12</td>
-                <td>玖鼎電表-A相電流</td>
-                <td>GeneralModbusDevice</td>
-                <td>Conn23</td>
-                <td>1</td>
+              <tr v-for="(deviceData, index) in deviceDatas" :key="deviceData.id">
+                <th scope="row" class="text-center">{{ index+1 }}</th>
+                <td>{{deviceData.device_id}}</td>
+                <td>{{deviceData.device_name}}</td>
+                <td>{{deviceData.device_type}}</td>
+                <td>{{deviceData.connect_id}}</td>
+                <td>{{ deviceData.station_id }}</td>
                 <td>
-                  <select class="form-select" id="country" required="">
-              <option value="">啟用中</option>
-              <option>停用中</option>
+                  <select class="form-select" id="country" required="" :value="deviceData.enabled_status">
+              <option value="true">啟用中</option>
+              <option value="false">停用中</option>
             </select>
                 </td>
-
-                <td>連線中</td>
+                <td>
+                  <span class="device-statu device-link" v-if="deviceData.device_status">連線中</span>
+                  <span class="device-statu" v-else>斷線中</span>
+                </td>
                 <td>
                   <div class="ps-2">
                     <button
@@ -134,191 +136,48 @@
     </section>
   </div>
 
-  <div
-    class="offcanvas offcanvas-end account-offcanvas"
-    tabindex="-1"
-    data-bs-backdrop="staticSS"
-    id="offcanvasExample"
-    aria-labelledby="offcanvasExampleLabel"
-  >
-    <div class="offcanvas-header justify-content-end">
-      <button
-        type="button"
-        class="btn-close rounded-5 bg-gray"
-        data-bs-dismiss="offcanvas"
-        aria-label="Close"
-      ></button>
-    </div>
-    <div class="title-word mt-1">
-      <span class="colr-block"></span>
-      <h2 class="mb-0 fw-semibold">建立新帳號</h2>
-    </div>
-    <div class="offcanvas-body">
-      <form class="needs-validation" novalidate="">
-        <div class="row g-3">
-          <div class="col-8">
-            <label for="account" class="form-label">帳號：</label>
-            <input
-              type="text"
-              class="form-control"
-              id="account"
-              value=""
-              required=""
-              placeholder="請輸入帳號"
-            />
-            <div class="invalid-feedback">Account is required.</div>
-          </div>
-          <div class="col-8">
-            <label for="name" class="form-label">姓名：</label>
-            <input
-              type="text"
-              class="form-control"
-              id="name"
-              placeholder="請輸入姓名"
-            />
-            <div class="invalid-feedback">Name is required.</div>
-          </div>
-          <div class="col-8">
-            <label for="tel" class="form-label">電話：</label>
-            <input
-              type="tel"
-              class="form-control"
-              id="tel"
-              placeholder="請輸入電話"
-            />
-            <div class="invalid-feedback">
-              Please enter a valid email address for shipping updates.
-            </div>
-          </div>
-          <div class="col-12 d-flex align-items-end gap-2">
-            <div class="col-8">
-              <label for="department" class="form-label">單位：</label>
-              <select class="form-select" id="department" required="">
-                <option value="">請選擇單位</option>
-                <option>United States</option>
-              </select>
-              <div class="invalid-feedback">
-                Please select a valid department.
-              </div>
-            </div>
-            <div class="col-4">
-              <button
-                type="button"
-                class="btn btn-outline-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
-              >
-                建立新單位
-              </button>
-            </div>
-          </div>
-          <div class="col-12 d-flex align-items-end gap-2">
-            <div class="col-8">
-              <label for="title" class="form-label">職稱：</label>
-              <select class="form-select" id="title" required="">
-                <option value="">請選擇職稱</option>
-                <option>United States</option>
-              </select>
-              <div class="invalid-feedback">Please select a valid title.</div>
-            </div>
-            <div class="col-4">
-              <button
-                type="button"
-                class="btn btn-outline-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
-              >
-                建立新職稱
-              </button>
-            </div>
-          </div>
-          <div class="col-8">
-            <label for="system-access" class="form-label">系統權限：</label>
-            <select class="form-select" id="system-access" required="">
-              <option value="">請選擇權限</option>
-              <option>United States</option>
-            </select>
-            <div class="invalid-feedback">Please select a valid country.</div>
-          </div>
-        </div>
-
-        <hr class="my-4" />
-        <h3>頁面權限</h3>
-        <div class="col-12 d-flex align-items-end gap-2">
-          <div class="col-8">
-            <select class="form-select" id="country" required="">
-              <option value="">Choose...</option>
-              <option>United States</option>
-            </select>
-            <div class="invalid-feedback">Please select a valid country.</div>
-          </div>
-          <div class="col-4">
-            <select class="form-select" id="country" required="">
-              <option value="">Choose...</option>
-              <option>United States</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-4">
-          <button type="button" class="btn btn-outline-gray">新增頁面</button>
-        </div>
-        <div class="mt-5 text-center">
-          <button class="btn btn-primary w-50" type="submit">下一步</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- Modal -->
-  <div
-    class="modal fade"
-    id="exampleModal"
-    data-bs-backdrop="static"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content bg-white-box">
-        <div class="modal-header border-0">
-          <div class="title-word">
-            <span class="colr-block"></span>
-            <h2 class="mb-0 fw-semibold">建立新單位</h2>
-          </div>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-
-        <div class="modal-body">
-          <!-- Input field in the modal body -->
-          <div class="mb-3">
-            <label for="inputField" class="form-label">單位名稱：</label>
-            <input
-              type="text"
-              class="form-control"
-              id="inputField"
-              placeholder="請輸入單位名稱"
-            />
-          </div>
-          <div class="text-center">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              儲存
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <deviceEdit
+    :is-new="isNew"
+    :temp-object="tempObject"
+    :add-modal-element="addModalElement"
+    :device-edit-element="deviceEditElement"/>
 </template>
 
 <script setup>
+import data from '../../assets/sampleData.json'
+import deviceEdit from '@/components/deviceEditOffcanvas.vue'
+import { ref, onMounted } from 'vue'
+import * as bootstrap from 'bootstrap'
+const deviceDatas = data.deviceDatas
+const deviceEditElement = ref(null)
+// const tempArray = ref(null)
+const isNew = ref(null)
+const tempObject = ref(null)
 
+function editDevice (object, modalStatus) {
+  if (modalStatus === 'new') {
+    isNew.value = true
+    tempObject.value = {
+      id: '',
+      device_id: '',
+      device_name: '',
+      device_type: '',
+      connect_id: '',
+      station_id: '',
+      enabled_status: false,
+      device_status: false
+    }
+  } else {
+    isNew.value = false
+    tempObject.value = { ...object }
+  }
+  deviceEditElement.value.show()
+}
+onMounted(() => {
+  deviceEditElement.value = new bootstrap.Offcanvas('#deviceEditOffcanvas',
+    {
+      keyboard: false
+    }
+  )
+})
 </script>

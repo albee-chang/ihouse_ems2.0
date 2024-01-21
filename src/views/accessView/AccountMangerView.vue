@@ -228,7 +228,7 @@
     :temp-object="tempObject"
     :add-modal-element="addModalElement"
     :account-edit-element="accountEditElement"
-  ></AccountEdit>
+  />
 </template>
 <script setup>
 import data from '../../assets/sampleData.json'

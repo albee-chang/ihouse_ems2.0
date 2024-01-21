@@ -268,7 +268,7 @@
         <div class="modal-header border-0">
           <div class="title-word">
             <span class="colr-block"></span>
-            <h2 class="mb-0 fw-semibold">建立新單位</h2>
+            <h2 class="mb-0 fw-semibold">新增節點</h2>
           </div>
           <button
             type="button"
@@ -281,13 +281,23 @@
         <div class="modal-body">
           <!-- Input field in the modal body -->
           <div class="mb-3">
-            <label for="inputField" class="form-label">單位名稱：</label>
-            <input
-              type="text"
-              class="form-control"
-              id="inputField"
-              placeholder="請輸入單位名稱"
-            />
+            <div class="col-6">
+              <label for="inputField" class="form-label fs-5">單位名稱：</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputField"
+                placeholder="請輸入單位名稱"
+              />
+            </div>            <div class="col-6">
+              <label for="inputField" class="form-label fs-5">單位名稱：</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputField"
+                placeholder="請輸入單位名稱"
+              />
+            </div>
           </div>
           <div class="text-center">
             <button

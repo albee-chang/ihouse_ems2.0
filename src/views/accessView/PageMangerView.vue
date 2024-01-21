@@ -106,7 +106,6 @@
     </section>
   </div>
   <!-- Edit Modal -->
-
   <div class="modal fade" id="pageEditModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="pageEditModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -145,7 +144,7 @@
           <div class="mb-3">
             <p class=" fw-light">建立者：</p>
             <div class="d-flex">
-              <img class="table-img-head" :src="pageTempArray?.createUser.photo" :alt=" pageTempArray?.createUser.name">
+              <img class="table-img-head me-2" :src="pageTempArray?.createUser.photo" :alt=" pageTempArray?.createUser.name">
               <div class="d-flex flex-column justify-content-between">
                 <p class="fs-5 fw-light mb-0">{{ pageTempArray?.createUser.name }}</p>
                 <p class="fs-5 mb-0">{{ pageTempArray?.createUser.phone }}</p>
@@ -162,7 +161,7 @@
 
             <div class="d-flex justify-content-between"  >
               <div class="d-flex">
-                <img class="table-img-head" :src="user.photo" alt="">
+                <img class="table-img-head me-2" :src="user.photo" alt="">
                 <div class="d-flex flex-column justify-content-between">
                   <p class="fs-5 fw-light mb-0">{{user.name}}</p>
                   <p class="fs-5 mb-0">{{user.phone}}</p>
