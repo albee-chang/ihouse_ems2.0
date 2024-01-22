@@ -63,14 +63,13 @@
         </div>
         <div class="btn-group w-50" role="group" aria-label="Basic outlined">
           <button type="button" class="btn btn-outline-black fs-5 border-0">匯出設定</button>
-          <button type="button" class="btn btn-outline-black fs-5 border-0 border-start" >匯入設定</button>
+          <button type="button" class="btn btn-outline-black fs-5 border-0 border-start">匯入設定</button>
         </div>
       </div>
     </div>
   </div>
-    <!-- addPoint Modal -->
-
-    <div class="modal fade" id="addPointModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="addPointModalLabel"
+  <!-- addPoint Modal -->
+  <div class="modal fade" id="addPointModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="addPointModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content bg-white-box p-2">
@@ -82,7 +81,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <VForm ref="addForm" @submit="addData">
+          <VForm ref="addPointForm" @submit="addPoint">
             <!-- <div class="mb-3">
               <div class="col-6">
                 <label for="inputField" class="form-label"
@@ -124,128 +123,72 @@
               </div>
             </div> -->
             <div class="row g-3 mb-3">
-            <div class="col-sm-6">
-              <label for="inputField" class="form-label fs-5">點位ID：</label>
-              <input
-                type="text"
-                class="form-control"
-                id="inputField"
-                placeholder="請輸入點位ID"
-              />
+              <div class="col-sm-6">
+                <label for="inputField" class="form-label fs-5">點位ID：</label>
+                <input type="text" class="form-control" id="inputField" placeholder="請輸入點位ID" />
+              </div>
+              <div class="col-sm-6">
+                <label for="inputField" class="form-label fs-5">起始暫存器：</label>
+                <input type="text" class="form-control" id="inputField" placeholder="請輸入名稱" />
+              </div>
+              <div class="col-sm-6">
+                <label for="inputField" class="form-label fs-5">類型：</label>
+                <select class="form-select" id="" required="">
+                  <option value="">請選擇類型</option>
+                  <option>1</option>
+                </select>
+              </div>
+              <div class="col-sm-6">
+                <label for="inputField" class="form-label fs-5">Swap Mode：</label>
+                <select class="form-select" id="" required="">
+                  <option value="">請選擇Swap Mode</option>
+                  <option>1</option>
+                </select>
+              </div>
+              <div class="col-sm-6">
+                <label for="inputField" class="form-label fs-5">Function Code：</label>
+                <select class="form-select" id="" required="">
+                  <option value="">請選擇Function Code</option>
+                  <option>1</option>
+                </select>
+              </div>
+              <div class="col-sm-6">
+                <label for="inputField" class="form-label fs-5">除數：</label>
+                <input type="text" class="form-control" id="inputField" placeholder="請輸入名稱" />
+              </div>
+              <div class="col-sm-6">
+                <label for="inputField" class="form-label fs-5">Reverse：</label>
+                <select class="form-select" id="" required="">
+                  <option value="">請選擇Reverse </option>
+                  <option>1</option>
+                </select>
+              </div>
+              <div class="col-sm-6">
+                <label for="inputField" class="form-label fs-5">虛擬節點類型：</label>
+                <select class="form-select" id="" required="">
+                  <option value="">請選擇類型</option>
+                  <option>1</option>
+                </select>
+              </div>
+              <div class="col-sm-6">
+                <label for="inputField" class="form-label fs-5">資料長度：</label>
+                <select class="form-select" id="" required="">
+                  <option value="">請選擇資料長度</option>
+                  <option>1</option>
+                </select>
+              </div>
+              <div class="col-sm-6">
+                <label for="inputField" class="form-label fs-5">資料刷新時間（ms）：</label>
+                <input type="text" class="form-control" id="inputField" placeholder="請輸入時間" />
+              </div>
             </div>
-            <div class="col-sm-6">
-              <label for="inputField" class="form-label fs-5">起始暫存器：</label>
-              <input
-                type="text"
-                class="form-control"
-                id="inputField"
-                placeholder="請輸入名稱"
-              />
-            </div><div class="col-sm-6">
-              <label for="inputField" class="form-label fs-5">類型：</label>
-              <select class="form-select" id="" required="">
-              <option value="">請選擇類型</option>
-              <option>1</option>
-            </select>
-            </div><div class="col-sm-6">
-              <label for="inputField" class="form-label fs-5">Swap Mode：</label>
-              <select class="form-select" id="" required="">
-              <option value="">請選擇Swap Mode</option>
-              <option>1</option>
-            </select>
-            </div><div class="col-sm-6">
-              <label for="inputField" class="form-label fs-5">Function Code：</label>
-              <select class="form-select" id="" required="">
-              <option value="">請選擇Function Code</option>
-              <option>1</option>
-            </select>
-            </div><div class="col-sm-6">
-              <label for="inputField" class="form-label fs-5">除數：</label>
-              <input
-                type="text"
-                class="form-control"
-                id="inputField"
-                placeholder="請輸入名稱"
-              />
-            </div><div class="col-sm-6">
-              <label for="inputField" class="form-label fs-5">Reverse：</label>
-              <select class="form-select" id="" required="">
-              <option value="">請選擇Reverse </option>
-              <option>1</option>
-            </select>
-            </div><div class="col-sm-6">
-              <label for="inputField" class="form-label fs-5">虛擬節點類型：</label>
-              <select class="form-select" id="" required="">
-              <option value="">請選擇類型</option>
-              <option>1</option>
-            </select>
-            </div><div class="col-sm-6">
-              <label for="inputField" class="form-label fs-5">資料長度：</label>
-              <select class="form-select" id="" required="">
-              <option value="">請選擇資料長度</option>
-              <option>1</option>
-            </select>
-            </div><div class="col-sm-6">
-              <label for="inputField" class="form-label fs-5">資料刷新時間（ms）：</label>
-              <input
-                type="text"
-                class="form-control"
-                id="inputField"
-                placeholder="請輸入時間"
-              />
-            </div>
-          </div>
             <div class="text-center">
-              <button
-                type="submit"
-                class="fw-semibold btn"
-                :class="[!newData ? 'btn-gray' : 'btn-primary']"
-                :disabled="!newData"
-              >
+              <button type="submit" class=" fw-lighter btn" :class="[!newData ? 'btn-gray' : 'btn-primary']"
+                :disabled="!newData">
                 完成
               </button>
             </div>
           </VForm>
-        </div>
-      </div>
-    </div>
-  </div>
-    <!-- addPoint Modal -->
-    <div
-    class="modal fade"
-    id="addPointModal"
-    data-bs-backdrop="static"
-    tabindex="-1"
-    aria-labelledby="addPointModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content bg-white-box">
-        <div class="modal-header border-0">
-          <div class="title-word">
-            <span class="colr-block"></span>
-            <h2 class="mb-0 fw-lighter"> 新增節點</h2>
-          </div>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-
-        <div class="modal-body">
-          <!-- Input field in the modal body -->
-
-          <div class="text-center">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              完成
-            </button>
-          </div>
         </div>
       </div>
     </div>
@@ -258,6 +201,7 @@ import Swal from 'sweetalert2'
 import * as bootstrap from 'bootstrap'
 
 const setPasswordForm = ref(null)
+
 const addPointElement = ref(null)
 const props = defineProps([
   'setPasswordElement', 'accountEditElement'
@@ -285,9 +229,17 @@ const userObject = {
   page: ''
 }
 console.log(userObject)
-
 const openModal = () => {
   addPointElement.value.show()
+}
+const addPoint = () => {
+  addPointElement.value.hide()
+  Swal.fire({
+    icon: 'success',
+    title: '已新增',
+    showConfirmButton: false,
+    timer: 2000
+  })
 }
 
 onMounted(() => {

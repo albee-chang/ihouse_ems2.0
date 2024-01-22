@@ -59,14 +59,13 @@
     </section>
     <section>
       <div class="d-flex justify-content-between align-items-end mb-2">
-        <h4 class="fw-semibold">列表</h4>
+        <h4 class=" fw-lighter">列表</h4>
         <div class="d-flex gap-2 align-items-center me-2">
-          <p class="mb-0 me-2">共計：12 筆</p>
+          <p class="mb-0 me-2">共計：{{deviceDatas.length}} 筆</p>
           <button
-            class="btn btn-outline-primary fw-semibold"
+            class="btn btn-outline-primary  fw-lighter"
             type="button"
             @click="editDevice(tempObject, 'new')"
-
           >
           新增裝置
           </button>
@@ -154,6 +153,11 @@ const deviceEditElement = ref(null)
 const isNew = ref(null)
 const tempObject = ref(null)
 
+/**
+ * 開啟編輯裝置的 offcanvas 函數，透過帶入裝置物件與按鈕為新增或是編輯。將資料帶入指定 offcanvas
+ * @param {Object} object 帶入需編輯的物件，或是新的空值物件
+ * @param {*} modalStatus 欲開啟的編輯狀態
+ */
 function editDevice (object, modalStatus) {
   if (modalStatus === 'new') {
     isNew.value = true
@@ -173,6 +177,7 @@ function editDevice (object, modalStatus) {
   }
   deviceEditElement.value.show()
 }
+// 掛載 bootstrap 內建的 彈跳視窗綁定 ID
 onMounted(() => {
   deviceEditElement.value = new bootstrap.Offcanvas('#deviceEditOffcanvas',
     {

@@ -21,32 +21,32 @@
           <div class="col-8">
             <label for="device-model" class="form-label fs-5">型號：</label>
             <VField id="device-model" name="device-model" as="select" class="form-select" required rules="required"
-                v-model="userObject.model">
-                <option value="" disabled>請選擇型號</option>
-                <option value="1">1</option>
-                <!-- <option v-for="title in titlesRef" :key="title" :value="title">
+              v-model="userObject.model">
+              <option value="" disabled>請選擇型號</option>
+              <option value="1">1</option>
+              <!-- <option v-for="title in titlesRef" :key="title" :value="title">
                   {{ title }}
                 </option> -->
-              </VField>
+            </VField>
             <ErrorMessage as="p" class="invalid-feedback d-block mb-0" name="device-model" />
           </div>
           <div class="separator"></div>
           <div class="col-8">
             <label for="device_id" class="form-label">裝置ID：</label>
-            <VField class="form-control" id="device_id" name="device_id" type="text" rules="required" required placeholder="請輸入裝置ID"
-              v-model="userObject.device_id" />
+            <VField class="form-control" id="device_id" name="device_id" type="text" rules="required" required
+              placeholder="請輸入裝置ID" v-model="userObject.device_id" />
             <ErrorMessage as="p" class="invalid-feedback d-block mb-0" name="device_id" />
           </div>
           <div class="col-8">
             <label for="device_name" class="form-label">裝置名稱：</label>
             <VField class="form-control" id="device_name" name="device_name" type="text" required rules="required"
-              placeholder="請輸入裝置名稱" v-model="userObject.device_name"/>
+              placeholder="請輸入裝置名稱" v-model="userObject.device_name" />
             <ErrorMessage as="p" class="invalid-feedback d-block mb-0" name="device_name" />
           </div>
           <div class="col-8">
             <label for="address" class="form-label">Address：</label>
             <VField class="form-control" id="address" name="address" type="text" required rules="required"
-              placeholder="請輸入Address" v-model="userObject.address"/>
+              placeholder="請輸入Address" v-model="userObject.address" />
             <ErrorMessage as="p" class="invalid-feedback d-block mb-0" name="address" />
           </div>
           <div class="col-12 d-flex select-lable-aligin gap-1">
@@ -64,52 +64,52 @@
               <ErrorMessage as="p" class="invalid-feedback d-block mb-0" name="department" />
             </div>
             <div class="col-2">
-              <button type="button" class="btn btn-outline-primary text-nowrap" @click="addModal('department')">
+              <button type="button" class="btn btn-outline-primary text-nowrap" @click="openAddLink()">
                 新增
               </button>
             </div>
             <div class="col-2">
-              <button type="button" class="btn btn-outline-primary text-nowrap" @click="addModal('department')">
+              <button type="button" class="btn btn-outline-primary text-nowrap" @click="openeditLink()">
                 編輯
               </button>
             </div>
           </div>
           <div class="col-8">
-              <label for="statu" class="form-label">狀態：</label>
-              <VField id="statu" name="statu" as="select" class="form-select" required rules="required"
-                v-model="userObject.device_status">
-                <option value="" disabled>請選擇狀態</option>
-                                <option value="1">1</option>
+            <label for="statu" class="form-label">狀態：</label>
+            <VField id="statu" name="statu" as="select" class="form-select" required rules="required"
+              v-model="userObject.device_status">
+              <option value="" disabled>請選擇狀態</option>
+              <option value="1">1</option>
 
-                <!-- <option v-for="title in titlesRef" :key="title" :value="title">
+              <!-- <option v-for="title in titlesRef" :key="title" :value="title">
                   {{ title }}
                 </option> -->
-              </VField>
-              <ErrorMessage as="p" class="invalid-feedback d-block mb-0" name="statu" />
-            </div>
-            <div class="col-8">
-              <label for="baudrate" class="form-label">Baudrate：</label>
-              <VField id="baudrate" name="baudrate" as="select" class="form-select" required rules="required"
-                v-model="userObject.baudrate">
-                <option value="" disabled>請選擇</option>
-                                <option value="1">1</option>
+            </VField>
+            <ErrorMessage as="p" class="invalid-feedback d-block mb-0" name="statu" />
+          </div>
+          <div class="col-8">
+            <label for="baudrate" class="form-label">Baudrate：</label>
+            <VField id="baudrate" name="baudrate" as="select" class="form-select" required rules="required"
+              v-model="userObject.baudrate">
+              <option value="" disabled>請選擇</option>
+              <option value="1">1</option>
 
-                <!-- <option v-for="title in titlesRef" :key="title" :value="title">
+              <!-- <option v-for="title in titlesRef" :key="title" :value="title">
                   {{ title }}
                 </option> -->
-              </VField>
-              <ErrorMessage as="p" class="invalid-feedback d-block mb-0" name="baudrate" />
-            </div>
+            </VField>
+            <ErrorMessage as="p" class="invalid-feedback d-block mb-0" name="baudrate" />
+          </div>
         </div>
         <div class="mt-5 text-center">
-          <span v-if="isNew"><button class="btn btn-primary w-50" :class="[!meta.valid ? 'btn-gray' : 'btn-primary']" :disabled="!meta.valid"
-            type="button" @click="userFormSubmit()">
-            下一步
-          </button></span>
-          <span v-else><button class="btn btn-primary w-50" :class="[!meta.valid ? 'btn-gray' : 'btn-primary']" :disabled="!meta.valid"
-            type="button" @click="saveUserData()">
-            儲存
-          </button></span>
+          <span v-if="isNew"><button class="btn btn-primary w-50" :class="[!meta.valid ? 'btn-gray' : 'btn-primary']"
+              :disabled="!meta.valid" type="button" @click="userFormSubmit()">
+              下一步
+            </button></span>
+          <span v-else><button class="btn btn-primary w-50" :class="[!meta.valid ? 'btn-gray' : 'btn-primary']"
+              :disabled="!meta.valid" type="button" @click="saveUserData()">
+              儲存
+            </button></span>
         </div>
       </VForm>
     </div>
@@ -118,7 +118,204 @@
   <!-- Add Modal -->
   <AddModal :temp-array="tempArray" :array-name="arrayName" @dataAdjusted="handleDataAdjusted" />
   <!-- <setPasswordCanvas :set-password-element="setPasswordElement" :account-edit-element="deviceEditElement" /> -->
-  <deviceEdit2/>
+  <deviceEdit2 />
+  <!-- addLink Modal -->
+  <div class="modal fade" id="addLinkModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="addLinkModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-white-box p-2">
+        <div class="modal-header border-0">
+          <div class="title-word">
+            <span class="colr-block"></span>
+            <h2 class="mb-0 fw-lighter">新增連線方式</h2>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <VForm ref="addPointForm" @submit="addLink">
+            <!-- <div class="mb-3">
+              <div class="col-6">
+                <label for="inputField" class="form-label"
+                >{{ typeName }}：</label
+              >
+              <VField
+                class="form-control"
+                id="inputField"
+                name="data"
+                type="test"
+                rules="required"
+                v-model="newData"
+                :placeholder="`${placeholder}`"
+              />
+              <ErrorMessage
+                as="p"
+                class="invalid-feedback d-block mb-0"
+                name="data"
+              />
+              </div>
+              <div class="col-6">
+                <label for="inputField" class="form-label"
+                >{{ typeName }}：</label
+              >
+              <VField
+                class="form-control"
+                id="inputField"
+                name="data"
+                type="test"
+                rules="required"
+                v-model="newData"
+                :placeholder="`${placeholder}`"
+              />
+              <ErrorMessage
+                as="p"
+                class="invalid-feedback d-block mb-0"
+                name="data"
+              />
+              </div>
+            </div> -->
+            <div class="row g-3 mb-3">
+              <div class="col-12 bg-light mb-2 p-3">
+                <label for="inputField" class="form-label fs-5 fw-lighter">連線方式：</label>
+                <select class="form-select" id="" required="">
+                  <option value="">請選擇連線方式</option>
+                  <option>1</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label for="inputField" class="form-label fs-5">連線ID：</label>
+                <input type="text" class="form-control" id="inputField" placeholder="請輸入連線ID" />
+              </div>
+              <div class="col-12">
+                <label for="inputField" class="form-label fs-5">連線名稱：</label>
+                <select class="form-select" id="" required="">
+                  <option value="">請輸入連線名稱</option>
+                  <option>1</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label for="inputField" class="form-label fs-5">Port：</label>
+                <select class="form-select" id="" required="">
+                  <option value="">請選擇Port</option>
+                  <option>1</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label for="inputField" class="form-label fs-5">Baudrate：</label>
+                <input type="text" class="form-control" id="inputField" placeholder="請輸入Baudrate" />
+              </div>
+            </div>
+            <div class="text-center">
+              <button type="submit" class=" fw-lighter btn" :class="[!newData ? 'btn-gray' : 'btn-primary']"
+                :disabled="!newData">
+                完成
+              </button>
+            </div>
+          </VForm>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- editLink Modal -->
+    <div class="modal fade" id="editLinkModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="editLinkModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-white-box p-2">
+        <div class="modal-header border-0">
+          <div class="title-word">
+            <span class="colr-block"></span>
+            <h2 class="mb-0 fw-lighter">編輯連線方式</h2>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <VForm ref="addPointForm" @submit="editLink">
+            <!-- <div class="mb-3">
+              <div class="col-6">
+                <label for="inputField" class="form-label"
+                >{{ typeName }}：</label
+              >
+              <VField
+                class="form-control"
+                id="inputField"
+                name="data"
+                type="test"
+                rules="required"
+                v-model="newData"
+                :placeholder="`${placeholder}`"
+              />
+              <ErrorMessage
+                as="p"
+                class="invalid-feedback d-block mb-0"
+                name="data"
+              />
+              </div>
+              <div class="col-6">
+                <label for="inputField" class="form-label"
+                >{{ typeName }}：</label
+              >
+              <VField
+                class="form-control"
+                id="inputField"
+                name="data"
+                type="test"
+                rules="required"
+                v-model="newData"
+                :placeholder="`${placeholder}`"
+              />
+              <ErrorMessage
+                as="p"
+                class="invalid-feedback d-block mb-0"
+                name="data"
+              />
+              </div>
+            </div> -->
+            <div class="row g-3 mb-3">
+              <div class="col-12 bg-light mb-2 p-3">
+                <label for="inputField" class="form-label fs-5 fw-lighter">連線方式：</label>
+                <select class="form-select" id="" required="">
+                  <option value="">請選擇連線方式</option>
+                  <option>1</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label for="inputField" class="form-label fs-5">連線ID：</label>
+                <input type="text" class="form-control" id="inputField" placeholder="請輸入連線ID" />
+              </div>
+              <div class="col-12">
+                <label for="inputField" class="form-label fs-5">連線名稱：</label>
+                <select class="form-select" id="" required="">
+                  <option value="">請輸入連線名稱</option>
+                  <option>1</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label for="inputField" class="form-label fs-5">Port：</label>
+                <select class="form-select" id="" required="">
+                  <option value="">請選擇Port</option>
+                  <option>1</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label for="inputField" class="form-label fs-5">Baudrate：</label>
+                <input type="text" class="form-control" id="inputField" placeholder="請輸入Baudrate" />
+              </div>
+            </div>
+            <div class="text-center d-flex gap-3 justify-content-center">
+              <button type="submit" class=" fw-lighter btn btn-outline-danger"
+                >
+                刪除
+              </button>
+              <button type="submit" class=" fw-lighter btn" :class="[!newData ? 'btn-gray' : 'btn-primary']"
+                :disabled="!newData">
+                儲存
+              </button>
+            </div>
+          </VForm>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -143,6 +340,32 @@ const departmentsRef = ref(props.departments)
 const titlesRef = ref(props.titles)
 const editUserForm = ref(null)
 const webPages = data.webPages
+const editLinkElement = ref(null)
+const openeditLink = () => {
+  editLinkElement.value.show()
+}
+const editLink = () => {
+  editLinkElement.value.hide()
+  Swal.fire({
+    icon: 'success',
+    title: '已儲存',
+    showConfirmButton: false,
+    timer: 2000
+  })
+}
+const addLinkElement = ref(null)
+const openAddLink = () => {
+  addLinkElement.value.show()
+}
+const addLink = () => {
+  addLinkElement.value.hide()
+  Swal.fire({
+    icon: 'success',
+    title: '已新增',
+    showConfirmButton: false,
+    timer: 2000
+  })
+}
 console.log(webPages)
 const pageAccesss = data.pageAccesss
 console.log(pageAccesss)
@@ -217,16 +440,16 @@ function closOffcanvas () {
   props.deviceEditElement.hide()
 }
 
-function addModal (addType) {
-  props.addModalElement.show()
-  if (addType === 'title') {
-    arrayName.value = 'title'
-    tempArray.value = [...titlesRef.value]
-  } else {
-    arrayName.value = 'department'
-    tempArray.value = [...departmentsRef.value]
-  }
-}
+// function addModal (addType) {
+//   props.addModalElement.show()
+//   if (addType === 'title') {
+//     arrayName.value = 'title'
+//     tempArray.value = [...titlesRef.value]
+//   } else {
+//     arrayName.value = 'department'
+//     tempArray.value = [...departmentsRef.value]
+//   }
+// }
 function getSystemAccess (access) {
   switch (access) {
     case 'Admin':
@@ -273,6 +496,18 @@ function handleDataAdjusted (dataAdjusted) {
 const setPasswordElement = ref(null)
 
 onMounted(() => {
+  addLinkElement.value = new bootstrap.Modal(
+    document.querySelector('#addLinkModal'),
+    {
+      keyboard: false
+    }
+  )
+  editLinkElement.value = new bootstrap.Modal(
+    document.querySelector('#editLinkModal'),
+    {
+      keyboard: false
+    }
+  )
   setPasswordElement.value = new bootstrap.Offcanvas(
     document.querySelector('#setPasswordCanvas'),
     {
