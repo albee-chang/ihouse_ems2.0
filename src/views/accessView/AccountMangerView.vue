@@ -278,6 +278,7 @@ function editAccount (object, modalStatus) {
   } else {
     isNew.value = false
     tempObject.value = { ...object }
+    console.log(tempObject.value)
   }
   accountEditElement.value.show()
 }

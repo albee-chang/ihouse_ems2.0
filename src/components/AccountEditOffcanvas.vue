@@ -142,12 +142,13 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watchEffect } from 'vue'
+import { ref, watch, onMounted, reactive } from 'vue'
 import Swal from 'sweetalert2'
 import setPasswordCanvas from '@/components/AccountSetPassword.vue'
 import AddModal from '@/components/AddModal.vue'
 import data from '../assets/sampleData.json'
 import * as bootstrap from 'bootstrap'
+
 const props = defineProps([
   'departments',
   'titles',
@@ -157,6 +158,7 @@ const props = defineProps([
   'isNew',
   'tempObject'
 ])
+
 const tempArray = ref(null)
 const arrayName = ref(null)
 const departmentsRef = ref(props.departments)
@@ -164,12 +166,9 @@ const titlesRef = ref(props.titles)
 const editUserForm = ref(null)
 const webPages = data.webPages
 const pageAccesss = data.pageAccesss
-let pageAccessArray = [{
-  page: '',
-  access: ''
-}]
 
-let userObject = {
+// 使用 reactive 使 userObject 成為響應式
+const userObject = reactive({
   account: '',
   name: '',
   phone: '',
@@ -180,12 +179,36 @@ let userObject = {
     page: '',
     access: ''
   }]
-}
+})
 
-if (props.tempObject !== null) {
-  console.log('temp Not Null')
-  userObject = { ...props.tempObject }
-  pageAccessArray = userObject.pageAccess
+let pageAccessArray = reactive([{
+  page: '',
+  access: ''
+}])
+
+// 監聽 props.tempObject 和 props.isNew 的變化
+watch(() => props.tempObject, (newVal) => {
+  if (newVal !== null) {
+    Object.assign(userObject, newVal) // 覆蓋 userObject
+    pageAccessArray = newVal.pageAccess // 更新 pageAccessArray
+  }
+}, { immediate: true })
+
+watch(() => props.isNew, (newVal) => {
+  if (newVal) {
+    resetForm() // 重設表單為初始狀態
+  }
+})
+
+const resetForm = () => {
+  userObject.account = ''
+  userObject.name = ''
+  userObject.phone = ''
+  userObject.department = ''
+  userObject.title = ''
+  userObject.systemAccess = ''
+  userObject.pageAccess = [{ page: '', access: '' }]
+  pageAccessArray = [{ page: '', access: '' }]
 }
 
 const addNewPage = () => {
@@ -194,17 +217,17 @@ const addNewPage = () => {
     access: ''
   })
 }
-watchEffect(() => {
-  if (!props.isNew) {
-    userObject = { ...props.tempObject }
-    pageAccessArray = userObject.pageAccess
-  } else {
-    pageAccessArray = [{
-      page: '',
-      access: ''
-    }]
-  }
-})
+// watchEffect(() => {
+//   if (!props.isNew) {
+//     userObject = { ...props.tempObject }
+//     pageAccessArray = userObject.pageAccess
+//   } else {
+//     pageAccessArray = [{
+//       page: '',
+//       access: ''
+//     }]
+//   }
+// })
 
 function userFormSubmit (vaue) {
   editUserForm.value.resetForm()

@@ -59,9 +59,13 @@ th, td{
     padding-top:24px;
     padding-bottom: 40px;
     padding-left: 92px;
-    // .offcanvas-body{
-    //     max-width: 480px;
-    // }
+    padding-right: 150px;
+    .offcanvas-body{
+        // max-width: 480px;
+        overflow-y: auto; /* 添加滾動軸 */
+        margin-right: -150px; /* 使用負邊距抵消 account-offcanvas 的 padding */
+        padding-right: 200px; 
+    }
     .form-label{
         margin-bottom: 5px;
         font-size: 14px;
