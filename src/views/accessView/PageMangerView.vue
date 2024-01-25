@@ -9,30 +9,51 @@
       </li>
     </ul>
     <section class="bg-white-box mb-2">
-      <form class="d-flex justify-content-between align-items-end">
+      <VForm class="d-flex justify-content-between align-items-end" ref="searchForm" @submit="searchFormSubmit">
         <div class="d-flex gap-2">
           <div class="">
-            <label for="exampleFormControlInput1" class="form-label">頁面名稱</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="頁面名稱" />
+            <label for="searchInput" class="form-label"
+              >頁面名稱</label
+            >
+            <VField
+            class="form-creator" name="searchInput" type="text"
+              id="searchInput"
+              placeholder="請輸入頁面名稱"
+            />
+
           </div>
           <div class="">
-            <label for="country2" class="form-label">建立者</label>
-            <select class="form-select" id="country2" required="">
-              <option value="">請選擇建立者</option>
-              <option>test user</option>
-            </select>
-            <div class="invalid-feedback">Please select a valid country.</div>
+            <label for="search-creator" class="form-label">建立者</label>
+            <VField
+                id="search-creator"
+                name="creator"
+                as="select"
+                class="form-select"
+              >
+                <option value="" disabled>請選擇建立者</option>
+                <!-- <option
+                  v-for="department in departments"
+                  :key="department"
+                  :value="department"
+                >
+                  {{ department }}
+                </option> -->
+              </VField>
+
+              <ErrorMessage
+                as="p"
+                class="invalid-feedback d-block mb-0"
+                name="creator"
+              />
           </div>
         </div>
         <div class="d-flex gap-2">
-          <button type="submit" class="btn btn-outline-gray fw-semibold">
+          <button type="button" class="btn btn-outline-gray fw-semibold" @click="searchFormClean">
             清除
           </button>
-          <button type="submit" class="btn btn-gray fw-semibold text-white">
-            搜尋
-          </button>
+          <button type="submit" class="btn btn-gray fw-semibold">搜尋</button>
         </div>
-      </form>
+      </VForm>
     </section>
     <section>
       <div class="d-flex justify-content-between align-items-end mb-2">
@@ -158,7 +179,6 @@
             </div>
             <template v-for="(user,index) in pageTempArray?.shareUser" :key=user.id>
               <div class="separator" v-if="index !=0"></div>
-
             <div class="d-flex justify-content-between"  >
               <div class="d-flex">
                 <img class="table-img-head me-2" :src="user.photo" alt="">
@@ -167,12 +187,34 @@
                   <p class="fs-5 mb-0">{{user.phone}}</p>
                 </div>
               </div>
-              <div class="col-3">
-                <select class="form-select" aria-label="Default select example">
-                  <option value="1">編輯者</option>
-                  <option value="1">檢視者</option>
-                </select>
-              </div>
+              {{ user }}
+              {{ pageTempArray }}
+              {{ getPageAccess(pageTempArray, user) }}
+              <!-- <div class="col-3">
+            <button type="button" class="btn btn-outline-gray dropdown-toggle" :class="[access.access !== '' ? 'text-black' : '']" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              {{
+                access.access !== ""
+                ? getPageAccess(access.access)
+                : "請選擇權限"
+              }}
+            </button>
+            <ul class="dropdown-menu access-box">
+              <template v-for="pageAccess in pageAccesss" :key="pageAccess">
+                <li class="d-flex">
+                  <img src="../assets/image/icons/tick.svg" :class="[pageAccess === access.access ? 'visible' : '']" alt="tick">
+                  <a class="dropdown-item" href="#" @click.prevent="selectPageAccess(access,pageAccess)">
+                    {{ getPageAccess(pageAccess) }}
+                  </a>
+                </li>
+              </template>
+
+              <li class="d-flex">
+                <img src="../assets/image/icons/tick.svg"  alt="tick">
+                <a class="dropdown-item text-danger border-0" href="#" @click.prevent="delePageAccess(access)">移除權限</a>
+              </li>
+            </ul>
+          </div> -->
             </div>
           </template>
           </div>
@@ -233,6 +275,27 @@ const delElement = ref(null)
 const tempArray = ref(null)
 const pageTempArray = ref(null)
 const { userDatas } = data
+// const pageAccesss = data.pageAccesss
+const searchForm = ref(null)
+
+function searchFormSubmit (values) {
+// 請串接 搜尋後的 API
+// 按鈕資料如下
+//   {
+//     "searchInput": "testInput",
+//     "department": "總管理部",
+//     "title": "總經理"
+// }
+  console.log(values)
+}
+
+/**
+ * 清除表單內容，為套件 API
+ */
+function searchFormClean () {
+  searchForm.value.resetForm()
+}
+
 const delPageBtn = (item) => {
   delElement.value.show()
   tempArray.value = { ...item }
@@ -306,4 +369,26 @@ onMounted(() => {
     keyboard: false
   })
 })
+/**
+ * 將頁面權限從英文轉換為中文，若沒有規範，則傳回原始資料
+ * @param {String} access 英文之頁面權限
+ */
+// function getPageAccessChinese (access) {
+//   switch (access) {
+//     case 'editable':
+//       return '編輯者'
+//     case 'onlyView':
+//       return '檢視者'
+//     case 'del':
+//       return '移除權限'
+//     default:
+//       return access
+//   }
+// }
+function getPageAccess (pageTempArray, userData) {
+  const pageName = pageTempArray.pageName
+  const userPage = userData.pageAccess
+  const access = userPage.filter(page => page.page === pageName)
+  console.log(access.access, userData)
+}
 </script>

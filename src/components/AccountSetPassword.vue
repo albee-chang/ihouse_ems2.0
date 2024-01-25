@@ -22,7 +22,7 @@
           <div class="col-8">
             <label for="password-chcek" class="form-label">確認密碼：</label>
             <VField class="form-control" id="password-chcek" name="password-chcek" type="password"
-              rules="confirmed:@password" placeholder="請再次輸入密碼" v-model="userObject.password" />
+              rules="confirmed:@password" placeholder="請再次輸入密碼" v-model="userObjectRef.password" />
             <ErrorMessage as="p" class="invalid-feedback d-block mb-0" name="password-chcek" />
           </div>
         </div>
@@ -40,34 +40,32 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import Swal from 'sweetalert2'
 
 const setPasswordForm = ref(null)
 
 const props = defineProps([
-  'setPasswordElement', 'accountEditElement'
+  'userObject', 'setPasswordElement', 'accountEditElement'
 ])
 
-function userFormSubmit (value) {
+const userObjectRef = reactive(props.userObject)
+
+/**
+ * 送出表單，完成密碼設定。同時關閉 offcanvas
+ */
+function userFormSubmit () {
+  // 請在這裡接要設定密碼的 API
   setPasswordForm.value.resetForm()
   props.setPasswordElement.hide()
   props.accountEditElement.hide()
   Swal.fire({
     icon: 'success',
     title: '已建立',
+    position: 'center',
     showConfirmButton: false,
     timer: 2000
   })
 }
 
-const userObject = {
-  account: '',
-  name: '',
-  phone: '',
-  department: '',
-  title: '',
-  systemAccess: '',
-  page: ''
-}
 </script>

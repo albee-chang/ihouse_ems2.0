@@ -98,38 +98,60 @@
               <option v-for="page in webPages" :key="page" :value="page">
                 {{ page }}
               </option>
-
-                       </VField>
+            </VField>
             <ErrorMessage as="p" class="invalid-feedback d-block mb-0" :name="`page-${index}`" />
           </div>
           <div class="col-4">
-            <VField :id="`page-access-${index}`" :name="`page-access-${index}`" as="select" class="form-select" required
-              rules="required" v-model="access.access">
-              <option value="" disabled>請選擇權限</option>
-              <option v-for="pageAccess in pageAccesss" :key="pageAccess" :value="pageAccess">
-                {{ getPageAccess(pageAccess) }}
-              </option>
-              <option> <button type="button" @click="delePageAccess">移除權限</button></option>
-            </VField>
-            <ErrorMessage as="p" class="invalid-feedback d-block mb-0" :name="`page-access-${index}`" />
+            <button type="button" class="btn btn-outline-gray dropdown-toggle" :class="[access.access !== '' ? 'text-black' : '']" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              {{
+                access.access !== ""
+                ? getPageAccessChinese(access.access)
+                : "請選擇權限"
+              }}
+            </button>
+            <ul class="dropdown-menu access-box">
+              <template v-for="pageAccess in pageAccesss" :key="pageAccess">
+                <li class="d-flex">
+                  <img src="../assets/image/icons/tick.svg" :class="[pageAccess === access.access ? 'visible' : '']" alt="tick">
+                  <a class="dropdown-item" href="#" @click.prevent="selectPageAccess(access,pageAccess)">
+                    {{ getPageAccessChinese(pageAccess) }}
+                  </a>
+                </li>
+              </template>
+
+              <li class="d-flex">
+                <img src="../assets/image/icons/tick.svg"  alt="tick">
+                <a class="dropdown-item text-danger border-0" href="#" @click.prevent="delePageAccess(access)">移除權限</a>
+              </li>
+            </ul>
           </div>
         </div>
 
         <div class="col-4">
           <button type="button" class="btn" @click="addNewPage" :class="{
-            'btn-outline-gray': (pageAccessArray && pageAccessArray[pageAccessArray.length - 1].page === ''),
-            'btn-outline-primary': !(pageAccessArray && pageAccessArray[pageAccessArray.length - 1].page === '')
-          }" :disabled="pageAccessArray && pageAccessArray[pageAccessArray.length - 1].page === ''">新增頁面</button>
+            'btn-outline-gray':
+              pageAccessArray &&
+              pageAccessArray[pageAccessArray.length - 1].page === '',
+            'btn-outline-primary': !(
+              pageAccessArray &&
+              pageAccessArray[pageAccessArray.length - 1].page === ''
+            ),
+          }" :disabled="pageAccessArray &&
+  pageAccessArray[pageAccessArray.length - 1].page === ''
+  ">
+            新增頁面
+          </button>
         </div>
         <div class="mt-5 text-center">
-          <span v-if="isNew"><button class="btn btn-primary w-50" :class="[!meta.valid ? 'btn-gray' : 'btn-primary']" :disabled="!meta.valid"
-            type="button" @click="userFormSubmit()">
-            下一步
-          </button></span>
-          <span v-else><button class="btn btn-primary w-50" :class="[!meta.valid ? 'btn-gray' : 'btn-primary']" :disabled="!meta.valid"
-            type="button" @click="saveUserData()">
-            儲存
-          </button></span>
+          <span v-if="isNew"><button class="btn btn-primary w-50" :class="[!meta.valid ? 'btn-gray' : 'btn-primary']"
+              :disabled="!meta.valid" type="button" @click="userFormSubmit()">
+              下一步
+            </button></span>
+          <span v-else><button class="btn btn-primary w-50" :class="[!meta.valid ? 'btn-gray' : 'btn-primary']"
+              :disabled="!meta.valid" type="button" @click="saveUserData()">
+              儲存
+            </button></span>
         </div>
       </VForm>
     </div>
@@ -137,18 +159,17 @@
 
   <!-- Add Modal -->
   <AddModal :temp-array="tempArray" :array-name="arrayName" @dataAdjusted="handleDataAdjusted"></AddModal>
-  <setPasswordCanvas :set-password-element="setPasswordElement" :account-edit-element="accountEditElement">
+  <setPasswordCanvas :user-object="userObject" :set-password-element="setPasswordElement" :account-edit-element="accountEditElement">
   </setPasswordCanvas>
 </template>
 
 <script setup>
-import { ref, watch, onMounted, reactive } from 'vue'
+import { ref, reactive, watch, onMounted } from 'vue'
 import Swal from 'sweetalert2'
 import setPasswordCanvas from '@/components/AccountSetPassword.vue'
 import AddModal from '@/components/AddModal.vue'
 import data from '../assets/sampleData.json'
 import * as bootstrap from 'bootstrap'
-
 const props = defineProps([
   'departments',
   'titles',
@@ -158,7 +179,7 @@ const props = defineProps([
   'isNew',
   'tempObject'
 ])
-
+const emit = defineEmits(['updateUserObject'])
 const tempArray = ref(null)
 const arrayName = ref(null)
 const departmentsRef = ref(props.departments)
@@ -166,97 +187,118 @@ const titlesRef = ref(props.titles)
 const editUserForm = ref(null)
 const webPages = data.webPages
 const pageAccesss = data.pageAccesss
-
-// 使用 reactive 使 userObject 成為響應式
 const userObject = reactive({
+  id: '',
   account: '',
   name: '',
   phone: '',
   department: '',
   title: '',
   systemAccess: '',
-  pageAccess: [{
+  pageAccess: [
+    {
+      page: '',
+      access: ''
+    }
+  ]
+})
+
+let pageAccessArray = reactive([
+  {
     page: '',
     access: ''
-  }]
-})
-
-let pageAccessArray = reactive([{
-  page: '',
-  access: ''
-}])
-
-// 監聽 props.tempObject 和 props.isNew 的變化
-watch(() => props.tempObject, (newVal) => {
-  if (newVal !== null) {
-    Object.assign(userObject, newVal) // 覆蓋 userObject
-    pageAccessArray = newVal.pageAccess // 更新 pageAccessArray
   }
-}, { immediate: true })
+])
 
-watch(() => props.isNew, (newVal) => {
-  if (newVal) {
-    resetForm() // 重設表單為初始狀態
+watch(
+  () => props.tempObject,
+  (newVal) => {
+    if (newVal !== null) {
+      Object.assign(userObject, newVal)
+      pageAccessArray = newVal.pageAccess
+    }
+  },
+  { immediate: true }
+)
+
+watch(
+  () => props.isNew,
+  (newVal) => {
+    if (newVal) {
+      editUserForm.value.resetForm()
+    }
   }
-})
+)
 
-const resetForm = () => {
-  userObject.account = ''
-  userObject.name = ''
-  userObject.phone = ''
-  userObject.department = ''
-  userObject.title = ''
-  userObject.systemAccess = ''
-  userObject.pageAccess = [{ page: '', access: '' }]
-  pageAccessArray = [{ page: '', access: '' }]
-}
-
-const addNewPage = () => {
+/**
+ * 新增一個空頁面的物件，供表單選擇用
+ */
+function addNewPage () {
   pageAccessArray.push({
     page: '',
     access: ''
   })
 }
-// watchEffect(() => {
-//   if (!props.isNew) {
-//     userObject = { ...props.tempObject }
-//     pageAccessArray = userObject.pageAccess
-//   } else {
-//     pageAccessArray = [{
-//       page: '',
-//       access: ''
-//     }]
-//   }
-// })
 
-function userFormSubmit (vaue) {
+/**
+ * 建立新的使用者資料（按鈕下一步）
+ * 先行建立資料後 -> 再去 製作密碼的 offcanvas
+ */
+function userFormSubmit () {
+  // 請在這裡接要新增使用者的 API
+  emit('updateUserObject', userObject)
   editUserForm.value.resetForm()
   setPasswordElement.value.show()
 }
 
-function saveUserData (vaue) {
+/**
+ * 更新使用者資料使用 function
+ * 將 userObject PUT 到 Server 端
+ * emit 為模擬資料，傳送回主頁面
+ */
+function saveUserData () {
+  // 請在這裡接 PUT 修改使用者的 API
+  emit('updateUserObject', userObject)
   Swal.fire({
     icon: 'success',
     title: '已儲存',
+    position: 'top',
     showConfirmButton: false,
     timer: 2000
   })
   props.accountEditElement.hide()
 }
 
-function delePageAccess () {
+/**
+ * 刪除頁面權限使用
+ */
+function delePageAccess (access) {
+  // 請在這裡接 刪除 使用者頁面權限 的 API
   Swal.fire({
     icon: 'success',
     title: '已移除',
+    position: 'top',
     showConfirmButton: false,
     timer: 2000
   })
 }
 
-function closOffcanvas () {
-  props.accountEditElement.hide()
+/**
+ * Bs5 btnGroup 製成下拉選單，變更頁面使用權限
+ * @param {Object} access 要更改的頁面權限物件
+ * @param {String} pageAccess 更改後的權限
+ */
+function selectPageAccess (access, pageAccess) {
+  // 請在這裡接 變更 使用者頁面權限 的 API
+
+  const index = userObject.pageAccess.findIndex(userObjectPage => userObjectPage.page === access.page)
+  userObject.pageAccess[index].access = pageAccess
 }
 
+/**
+ * 新增職稱、部門的 modal，用以控制開啟 modal 與帶入陣列資料
+ * @param {String} addType 新增的類別，用以帶入相關資料陣列
+ */
 function addModal (addType) {
   props.addModalElement.show()
   if (addType === 'title') {
@@ -267,6 +309,17 @@ function addModal (addType) {
     tempArray.value = [...departmentsRef.value]
   }
 }
+/**
+ * 關閉 offcanvas
+ */
+function closOffcanvas () {
+  props.accountEditElement.hide()
+}
+
+/**
+ * 將系統權限從英文轉換為中文，若沒有規範，則傳回原始資料
+ * @param {String} access 英文之系統權限名
+ */
 function getSystemAccess (access) {
   switch (access) {
     case 'Admin':
@@ -282,7 +335,11 @@ function getSystemAccess (access) {
   }
 }
 
-function getPageAccess (access) {
+/**
+ * 將頁面權限從英文轉換為中文，若沒有規範，則傳回原始資料
+ * @param {String} access 英文之頁面權限
+ */
+function getPageAccessChinese (access) {
   switch (access) {
     case 'editable':
       return '編輯者'

@@ -13,18 +13,18 @@
       </li>
     </ul>
     <section class="bg-white-box mb-2">
-      <VForm class="d-flex justify-content-between align-items-end">
+      <VForm class="d-flex justify-content-between align-items-end" ref="searchForm" @submit="searchFormSubmit">
         <div class="d-flex gap-2">
           <div class="">
-            <label for="exampleFormControlInput1" class="form-label"
+            <label for="searchInput" class="form-label"
               >姓名、電話、帳號</label
             >
-            <input
-              type="text"
-              class="form-control"
-              id="exampleFormControlInput1"
+            <VField
+            class="form-control" name="searchInput" type="text"
+              id="searchInput"
               placeholder="請輸入姓名、電話、帳號"
             />
+
           </div>
           <div class="">
             <label for="search-department" class="form-label">單位</label>
@@ -33,8 +33,6 @@
                 name="department"
                 as="select"
                 class="form-select"
-                required
-                rules="required"
               >
                 <option value="" disabled>請選擇單位</option>
                 <option
@@ -59,8 +57,6 @@
                 name="title"
                 as="select"
                 class="form-select"
-                required
-                rules="required"
               >
                 <option value="" disabled>請選擇職稱</option>
                 <option v-for="title in titles" :key="title" :value="title">
@@ -76,7 +72,7 @@
           </div>
         </div>
         <div class="d-flex gap-2">
-          <button type="submit" class="btn btn-outline-gray fw-semibold">
+          <button type="button" class="btn btn-outline-gray fw-semibold" @click="searchFormClean">
             清除
           </button>
           <button type="submit" class="btn btn-gray fw-semibold">搜尋</button>
@@ -228,6 +224,7 @@
     :temp-object="tempObject"
     :add-modal-element="addModalElement"
     :account-edit-element="accountEditElement"
+    @update-user-Object="updateUserObject"
   />
 </template>
 <script setup>
@@ -244,7 +241,30 @@ const tempObject = ref(null)
 const addModalElement = ref(null)
 const accountEditElement = ref(null)
 const delUserModalElement = ref(null)
+const searchForm = ref(null)
 
+function searchFormSubmit (values) {
+// 請串接 搜尋後的 API
+// 按鈕資料如下
+//   {
+//     "searchInput": "testInput",
+//     "department": "總管理部",
+//     "title": "總經理"
+// }
+  console.log(values)
+}
+
+/**
+ * 清除表單內容，為套件 API
+ */
+function searchFormClean () {
+  searchForm.value.resetForm()
+}
+
+/**
+ * 取得 系統權限 中文顯示資料，若無設定傳回原值
+ * @param {String} access 資料庫紀載之英文 權限
+ */
 function getSystemAccess (access) {
   switch (access) {
     case 'Admin':
@@ -278,16 +298,41 @@ function editAccount (object, modalStatus) {
   } else {
     isNew.value = false
     tempObject.value = { ...object }
-    console.log(tempObject.value)
   }
   accountEditElement.value.show()
 }
+/**
+ * 此為模擬資料使用，正式上線。於 AccountEditOffcanvas @click 觸發 API 即可
+ * @param {Object} userObject component 回傳的 Object
+ */
+function updateUserObject (userObject) {
+  if (isNew.value) {
+    const lastData = userDatasRef[userDatasRef.value.length - 1]
+    const id = lastData.id + 1
+    userObject.id = id
+    userDatasRef.value.push(userObject)
+  } else {
+    const index = userDatasRef.value.findIndex(userData => userData.id === userObject.id)
+    if (index !== -1) {
+      userDatasRef.value[index] = userObject
+    }
+  }
+}
+/**
+ * 將使用者傳入 彈跳視窗，同時開啟 確認刪除使用者的畫面
+ * @param {Object} item 使用者的物件資料
+ */
 function delUserBtn (item) {
   delUserModalElement.value.show()
   tempArray.value = { ...item }
 }
 
+/**
+ * 確認刪除使用者 按鈕後 的動作
+ * @param {number} id 使用者ID，預設 NUMBER 等後續 API 確認調整
+ */
 function checkDelUser (id) {
+  // 這裡請串接 刪除 使用者 API
   userDatasRef.value = userDatasRef.value.filter(
     (item, index) => item.id !== id
   )
@@ -296,10 +341,12 @@ function checkDelUser (id) {
   Swal.fire({
     icon: 'success',
     title: '已刪除',
+    position: 'top',
     showConfirmButton: false,
     timer: 2000
   })
 }
+
 onMounted(() => {
   accountEditElement.value = new bootstrap.Offcanvas('#accountEditOffcanvas',
     {

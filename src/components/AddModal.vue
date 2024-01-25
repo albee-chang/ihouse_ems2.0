@@ -62,6 +62,7 @@
 
 <script setup>
 import { ref, watchEffect } from 'vue'
+import Swal from 'sweetalert2'
 
 const props = defineProps(['tempArray', 'arrayName'])
 const emit = defineEmits(['dataAdjusted'])
@@ -70,6 +71,10 @@ const typeName = ref(null)
 const placeholder = ref(null)
 const addForm = ref(null)
 
+/**
+ * 將輸入欄位帶入相對應的變數
+ * @param {String} name 父層元件 帶入的參數
+ */
 function getTypeNames (name) {
   switch (name) {
     case 'title':
@@ -82,8 +87,31 @@ function getTypeNames (name) {
       break
   }
 }
+/**
+ * 將新增的職稱 / 單位名稱傳回父元素、建立新資料
+ */
 function addData () {
-  const adjustedArray = [...props.tempArray, newData.value]
+  // 請在這裡接 新增 職稱 or 單位名稱 的 API
+  const isExist = props.tempArray.findIndex(item => item === newData.value)
+  const adjustedArray = [...props.tempArray]
+  if (isExist === -1) {
+    Swal.fire({
+      icon: 'error',
+      title: '建立失敗',
+      position: 'top',
+      showConfirmButton: false,
+      timer: 2000
+    })
+  } else {
+    Swal.fire({
+      icon: 'success',
+      title: '已建立',
+      position: 'top',
+      showConfirmButton: false,
+      timer: 2000
+    })
+    adjustedArray.push(newData.value)
+  }
   emit('dataAdjusted', { arrayName: props.arrayName, adjustedArray })
   addForm.value.resetForm()
 }
