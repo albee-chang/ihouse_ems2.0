@@ -307,8 +307,9 @@ function editAccount (object, modalStatus) {
  */
 function updateUserObject (userObject) {
   if (isNew.value) {
-    const lastData = userDatasRef[userDatasRef.value.length - 1]
-    const id = lastData.id + 1
+    const lastData = userDatasRef.value[userDatasRef.value.length - 1]
+    const lastId = lastData ? parseInt(lastData.id, 10) : 0
+    const id = isNaN(lastId) ? 1 : lastId + 1
     userObject.id = id
     userDatasRef.value.push(userObject)
   } else {

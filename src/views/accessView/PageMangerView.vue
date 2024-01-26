@@ -16,11 +16,10 @@
               >頁面名稱</label
             >
             <VField
-            class="form-creator" name="searchInput" type="text"
+            class="form-control" name="searchInput" type="text"
               id="searchInput"
               placeholder="請輸入頁面名稱"
             />
-
           </div>
           <div class="">
             <label for="search-creator" class="form-label">建立者</label>
@@ -31,13 +30,13 @@
                 class="form-select"
               >
                 <option value="" disabled>請選擇建立者</option>
-                <!-- <option
-                  v-for="department in departments"
-                  :key="department"
-                  :value="department"
+                <option
+                  v-for="userData in userDatas"
+                  :key="userData.id"
+                  :value="userData.name"
                 >
-                  {{ department }}
-                </option> -->
+                  {{ userData.name }}
+                </option>
               </VField>
 
               <ErrorMessage
@@ -134,33 +133,78 @@
         <div class="modal-header border-0">
           <div class="title-word">
             <span class="colr-block"></span>
-            <h2 class="mb-0 fw-semibold">編輯「用電管理」頁面權限</h2>
+            <h2 class="mb-0 fw-semibold">編輯「{{pageTempArray?.pageName}}」頁面權限</h2>
           </div>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <div class="bg-white-box bg-light p-3 mb-4">
             <p class="fs-5">新增使用者：</p>
+            <VForm ref="searchUserForm" @submit="searchUserFormSubmit">
             <div class="d-flex gap-1">
               <div class="">
-                <input type="text" class="form-control" id="userInput" placeholder="請輸入使用者名稱、帳號或Email" />
+                <VField
+            class="form-control" name="searchInput" type="text"
+              id="userInput"
+              placeholder="請輸入使用者名稱、帳號或Email"
+            />
               </div>
               <div class="">
-                <select class="form-select" aria-label="Default select example">
-                  <option selected>單位</option>
-                  <option value="1">One</option>
-                </select>
+                <VField
+                id="search-department"
+                name="department"
+                as="select"
+                class="form-select"
+              >
+                <option value="" disabled>單位</option>
+                <option
+                  v-for="department in departments"
+                  :key="department"
+                  :value="department"
+                >
+                  {{ department }}
+                </option>
+              </VField>
+
+              <ErrorMessage
+                as="p"
+                class="invalid-feedback d-block mb-0"
+                name="department"
+              />
               </div>
               <div class="">
-                <select class="form-select" aria-label="Default select example">
-                  <option selected>職稱</option>
-                  <option value="1">One</option>
-                </select>
+                <VField
+                id="search-title"
+                name="title"
+                as="select"
+                class="form-select"
+              >
+                <option value="" disabled>職稱</option>
+                <option
+                  v-for="title in titles"
+                  :key="title"
+                  :value="title"
+                >
+                  {{ title }}
+                </option>
+              </VField>
+
+              <ErrorMessage
+                as="p"
+                class="invalid-feedback d-block mb-0"
+                name="title"
+              />
               </div>
               <div class="">
-                <p class="mb-0">篩選</p>
+                <button
+                  type="submit"
+                  class="btn btn-outline-gray text-nowrap border-0"
+                >
+                篩選
+                </button>
               </div>
             </div>
+          </VForm>
           </div>
           <div class="mb-3">
             <p class=" fw-light">建立者：</p>
@@ -187,34 +231,27 @@
                   <p class="fs-5 mb-0">{{user.phone}}</p>
                 </div>
               </div>
-              {{ user }}
-              {{ pageTempArray }}
-              {{ getPageAccess(pageTempArray, user) }}
-              <!-- <div class="col-3">
-            <button type="button" class="btn btn-outline-gray dropdown-toggle" :class="[access.access !== '' ? 'text-black' : '']" data-bs-toggle="dropdown"
+              <div class="col-3">
+            <button type="button" class="btn btn-outline-gray dropdown-toggle text-black" data-bs-toggle="dropdown"
               aria-expanded="false">
-              {{
-                access.access !== ""
-                ? getPageAccess(access.access)
-                : "請選擇權限"
-              }}
+              {{ getPageAccessChinese(getPageAccess(pageTempArray, user)) }}
             </button>
             <ul class="dropdown-menu access-box">
               <template v-for="pageAccess in pageAccesss" :key="pageAccess">
                 <li class="d-flex">
-                  <img src="../assets/image/icons/tick.svg" :class="[pageAccess === access.access ? 'visible' : '']" alt="tick">
-                  <a class="dropdown-item" href="#" @click.prevent="selectPageAccess(access,pageAccess)">
-                    {{ getPageAccess(pageAccess) }}
+                  <img src="../../assets/image/icons/tick.svg" :class="[pageAccess === getPageAccess(pageTempArray, user) ? 'visible' : '']" alt="tick">
+                  <a class="dropdown-item" href="#" @click.prevent="selectPageAccess(pageTempArray,user,pageAccess)">
+                    {{ getPageAccessChinese(pageAccess) }}
                   </a>
                 </li>
               </template>
 
               <li class="d-flex">
-                <img src="../assets/image/icons/tick.svg"  alt="tick">
+                <img src="../../assets/image/icons/tick.svg"  alt="tick">
                 <a class="dropdown-item text-danger border-0" href="#" @click.prevent="delePageAccess(access)">移除權限</a>
               </li>
             </ul>
-          </div> -->
+          </div>
             </div>
           </template>
           </div>
@@ -275,7 +312,9 @@ const delElement = ref(null)
 const tempArray = ref(null)
 const pageTempArray = ref(null)
 const { userDatas } = data
-// const pageAccesss = data.pageAccesss
+const pageAccesss = data.pageAccesss
+const titles = data.titles
+const departments = data.departments
 const searchForm = ref(null)
 
 function searchFormSubmit (values) {
@@ -373,22 +412,59 @@ onMounted(() => {
  * 將頁面權限從英文轉換為中文，若沒有規範，則傳回原始資料
  * @param {String} access 英文之頁面權限
  */
-// function getPageAccessChinese (access) {
-//   switch (access) {
-//     case 'editable':
-//       return '編輯者'
-//     case 'onlyView':
-//       return '檢視者'
-//     case 'del':
-//       return '移除權限'
-//     default:
-//       return access
-//   }
-// }
+function getPageAccessChinese (access) {
+  switch (access) {
+    case 'editable':
+      return '編輯者'
+    case 'onlyView':
+      return '檢視者'
+    case 'del':
+      return '移除權限'
+    default:
+      return access
+  }
+}
 function getPageAccess (pageTempArray, userData) {
   const pageName = pageTempArray.pageName
   const userPage = userData.pageAccess
   const access = userPage.filter(page => page.page === pageName)
-  console.log(access.access, userData)
+  return access[0].access
 }
+
+/**
+ * 刪除頁面權限使用
+ */
+function delePageAccess (access) {
+  // 請在這裡接 刪除 使用者頁面權限 的 API
+  Swal.fire({
+    icon: 'success',
+    title: '已移除',
+    position: 'top',
+    showConfirmButton: false,
+    timer: 2000
+  })
+}
+
+/**
+ * Bs5 btnGroup 製成下拉選單，變更頁面使用權限
+ * @param {Object} pageArray 當前頁面物件
+ * @param {Object} userArray 欲變更的使用者物件
+ * @param {String} pageAccess 更改後的權限
+ */
+function selectPageAccess (pageArray, userArray, pageAccess) {
+  // 請在這裡接 變更 使用者頁面權限 的 API
+  console.log()
+}
+
+function searchUserFormSubmit (values) {
+// 請串接 搜尋後的 API
+// 按鈕資料如下
+//   {
+//     "searchInput": "testInput",
+//     "department": "總管理部",
+//     "title": "總經理"
+// }
+  console.log(values)
+}
+
 </script>

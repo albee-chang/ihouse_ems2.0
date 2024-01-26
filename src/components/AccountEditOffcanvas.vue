@@ -80,7 +80,7 @@
               v-model="userObject.systemAccess">
               <option value="" disabled>請選擇權限</option>
               <option v-for="systemAccess in systemAccesss" :key="systemAccess" :value="systemAccess">
-                {{ getSystemAccess(systemAccess) }}
+                {{ getSystemAccessChinese(systemAccess) }}
               </option>
             </VField>
             <ErrorMessage as="p" class="invalid-feedback d-block mb-0" name="system-access" />
@@ -246,6 +246,7 @@ function addNewPage () {
  */
 function userFormSubmit () {
   // 請在這裡接要新增使用者的 API
+  console.log(userObject)
   emit('updateUserObject', userObject)
   editUserForm.value.resetForm()
   setPasswordElement.value.show()
@@ -320,7 +321,7 @@ function closOffcanvas () {
  * 將系統權限從英文轉換為中文，若沒有規範，則傳回原始資料
  * @param {String} access 英文之系統權限名
  */
-function getSystemAccess (access) {
+function getSystemAccessChinese (access) {
   switch (access) {
     case 'Admin':
       return '系統管理員'
