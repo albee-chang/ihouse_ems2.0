@@ -20,7 +20,7 @@
   --#{$prefix}btn-disabled-opacity: #{$btn-disabled-opacity};
   --#{$prefix}btn-focus-box-shadow: 0 0 0 #{$btn-focus-width} rgba(var(--#{$prefix}btn-focus-shadow-rgb), .5);
   // scss-docs-end btn-css-vars
-
+  white-space:nowrap;  //直接設定 btn 內的文字不換行，有遇到破版在行個案處理
   display: inline-block;
   padding: var(--#{$prefix}btn-padding-y) var(--#{$prefix}btn-padding-x);
   font-family: var(--#{$prefix}btn-font-family);

@@ -62,7 +62,8 @@
 
 <script setup>
 import { ref, watchEffect } from 'vue'
-import Swal from 'sweetalert2'
+import commonFunction from '../assets/js/commonFunctions.js'
+const { swalSuccess } = commonFunction.setup()
 
 const props = defineProps(['tempArray', 'arrayName'])
 const emit = defineEmits(['dataAdjusted'])
@@ -95,21 +96,9 @@ function addData () {
   const isExist = props.tempArray.findIndex(item => item === newData.value)
   const adjustedArray = [...props.tempArray]
   if (isExist === -1) {
-    Swal.fire({
-      icon: 'error',
-      title: '建立失敗',
-      position: 'top',
-      showConfirmButton: false,
-      timer: 2000
-    })
+    swalSuccess('建立失敗')
   } else {
-    Swal.fire({
-      icon: 'success',
-      title: '已建立',
-      position: 'top',
-      showConfirmButton: false,
-      timer: 2000
-    })
+    swalSuccess('已建立')
     adjustedArray.push(newData.value)
   }
   emit('dataAdjusted', { arrayName: props.arrayName, adjustedArray })

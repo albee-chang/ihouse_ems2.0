@@ -1,54 +1,67 @@
 <template>
   <div class="container">
-    <ul class="list-unstyled d-flex page-box mb-4">
-      <li class="page-item">
-        <router-link to="/devices/devicesManger" class="page-link  fs-4">裝置列表</router-link>
-      </li>
-      <li class="page-item">
-        <router-link to="/devices/locationManger" class="page-link fs-4">點位列表</router-link>
-      </li>
-    </ul>
+    <ItemNav :nav-where = "'devices'"/>
     <section class="bg-white-box mb-2">
-      <form class="d-flex justify-content-between align-items-end">
+      <VForm class="d-flex justify-content-between align-items-end" ref="searchForm" @submit="searchFormSubmit">
         <div class="d-flex gap-2">
           <div class="">
-            <label for="exampleFormControlInput1" class="form-label">點位ID、點位名稱</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="請輸入ID、名稱" />
+            <label for="searchInput" class="form-label">點位ID、點位名稱</label>
+            <VField type="text" class="form-control" name="searchInput" id="searchInput" placeholder="請輸入ID、名稱" />
           </div>
           <div class="">
-            <label for="country" class="form-label">裝置</label>
-            <select class="form-select" id="country" required="">
-              <option value="">請選擇裝置</option>
-              <option>United States</option>
-            </select>
-            <div class="invalid-feedback">Please select a valid country.</div>
+            <label for="device" class="form-label">裝置</label>
+            <VField class="form-select" id="device" name="device" as="select" required>
+              <option value="" disabled>請選擇裝置</option>
+              <option value="test">測試</option>
+              <!-- <option
+                  v-for="department in departments"
+                  :key="department"
+                  :value="department"
+                >
+                  {{ department }}
+                </option> -->
+            </VField>
+
+            <ErrorMessage as="p" class="invalid-feedback d-block mb-0" name="device" />
           </div>
           <div class="">
-            <label for="country2" class="form-label">點位類型</label>
-            <select class="form-select" id="country2" required="">
-              <option value="">請選擇狀態</option>
-              <option>United States</option>
-            </select>
-            <div class="invalid-feedback">Please select a valid country.</div>
+            <label for="point-type" class="form-label">點位類型</label>
+            <VField class="form-select" id="point-type" name="point-type" as="select" required>
+              <option value="" disabled>請選擇狀態</option>
+              <option v-for="pointType in getPointTypes()" :key="pointType" :value="pointType">
+                {{ pointType }}
+              </option>
+            </VField>
+
+            <ErrorMessage as="p" class="invalid-feedback d-block mb-0" name="location-type" />
           </div>
           <div class="">
-            <label for="country2" class="form-label">狀態</label>
-            <select class="form-select" id="country2" required="">
-              <option value="">請選擇狀態</option>
-              <option>United States</option>
-            </select>
-            <div class="invalid-feedback">Please select a valid country.</div>
+            <label for="status" class="form-label">狀態</label>
+            <VField class="form-select" id="status" name="status" as="select" required>
+              <option value="" disabled>請選擇狀態</option>
+              <option value="link">連線中</option>
+              <option value="unLink">斷線中</option>
+              <!-- <option
+                  v-for="department in departments"
+                  :key="department"
+                  :value="department"
+                >
+                  {{ department }}
+                </option> -->
+            </VField>
+
+            <ErrorMessage as="p" class="invalid-feedback d-block mb-0" name="status" />
           </div>
         </div>
         <div class="d-flex gap-2">
-          <button type="submit" class="btn btn-outline-gray fw-semibold">
+          <button type="button" class="btn btn-outline-gray fw-semibold" @click="searchFormClean()">
             清除
           </button>
           <button type="submit" class="btn btn-gray fw-semibold text-white">
             搜尋
           </button>
         </div>
-      </form>
+      </VForm>
     </section>
     <section>
       <div class="d-flex justify-content-between align-items-end mb-2">
@@ -94,8 +107,7 @@
                 <td>{{ locationPoint.value }}</td>
                 <td>
                   <div class="ps-2">
-                    <button class="btn btn-outline-primary border-0 fw-lighter" type="button"
-                    @click="editLocation">
+                    <button class="btn btn-outline-primary border-0 fw-lighter" type="button" @click="editLocation(locationPoint)">
                       編輯
                     </button>
                   </div>
@@ -107,135 +119,66 @@
       </div>
     </section>
   </div>
-
-  <div class="offcanvas offcanvas-end account-offcanvas" tabindex="-1" data-bs-backdrop="staticSS" id="locationEditOffcanvas"
-    aria-labelledby="locationEditOffcanvasLabel">
-    <div class="offcanvas-header justify-content-end">
-      <button type="button" class="btn-close rounded-5 bg-gray" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="title-word mt-1">
-      <span class="colr-block"></span>
-      <h2 class="mb-0 fw-lighter">編輯點位 </h2>
-    </div>
-    <div class="offcanvas-body">
-      <h3 class="fw-lighter">點位基本資料</h3>
-      <form class="needs-validation" novalidate="">
-        <div class="row g-3">
-          <div class="col-8">
-            <label for="account" class="form-label">點位類型：</label>
-            <input type="text" class="form-control" id="account" value="" required="" placeholder="請輸入點位類型" />
-            <div class="invalid-feedback">Account is required.</div>
-          </div>
-          <div class="col-8">
-            <label for="system-access" class="form-label">點位節點：</label>
-            <select class="form-select" id="system-access" required="">
-              <option value="">請選擇點位節點</option>
-              <option>1</option>
-            </select>
-            <div class="invalid-feedback">Please select a valid country.</div>
-          </div>
-          <div class="col-8">
-            <label for="name" class="form-label">點位名稱：</label>
-            <input type="text" class="form-control" id="name" placeholder="請輸入點位名稱" />
-            <div class="invalid-feedback">Name is required.</div>
-          </div>
-          <div class="col-8">
-            <label for="tel" class="form-label">資料數值：
-            </label>
-            <input type="text" class="form-control" id="tel" placeholder="請輸入資料數值" />
-            <div class="invalid-feedback">
-              Please enter a valid email address for shipping updates.
-            </div>
-          </div>
-          <div class="col-12 d-flex align-items-end gap-2">
-            <div class="col-8">
-              <label for="department" class="form-label">設定數值：
-
-              </label>
-              <select class="form-select" id="department" required="">
-                <option value="">請輸入設定數值</option>
-                <option>1</option>
-              </select>
-              <div class="invalid-feedback">
-                Please select a valid department.
-              </div>
-            </div>
-            <div class="col-4">
-              <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                點位復歸
-              </button>
-            </div>
-          </div>
-          <div class="col-8">
-            <label for="system-access" class="form-label">緊急通知：</label>
-            <select class="form-select" id="system-access" required="">
-              <option value="">請選擇是否需要緊急通知</option>
-              <option>1</option>
-            </select>
-            <div class="invalid-feedback">Please select a valid country.</div>
-          </div>
-          <div class="col-8">
-            <label for="system-access" class="form-label">連動攝影機：</label>
-            <select class="form-select" id="system-access" required="">
-              <option value="">請選擇攝影機</option>
-              <option>1</option>
-            </select>
-            <div class="invalid-feedback">Please select a valid country.</div>
-          </div>
-        </div>
-
-        <div class="mt-5 text-center">
-          <button class="btn btn-primary w-50" type="submit">儲存</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content bg-white-box">
-        <div class="modal-header border-0">
-          <div class="title-word">
-            <span class="colr-block"></span>
-            <h2 class="mb-0 fw-semibold">新增節點</h2>
-          </div>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-
-        <div class="modal-body">
-          <!-- Input field in the modal body -->
-          <div class="mb-3">
-            <div class="col-6">
-              <label for="inputField" class="form-label fs-5">單位名稱：</label>
-              <input type="text" class="form-control" id="inputField" placeholder="請輸入單位名稱" />
-            </div>
-            <div class="col-6">
-              <label for="inputField" class="form-label fs-5">單位名稱：</label>
-              <input type="text" class="form-control" id="inputField" placeholder="請輸入單位名稱" />
-            </div>
-          </div>
-          <div class="text-center">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-              儲存
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<EditOffcanvas :tempObject="tempObject" :element-control="locationEditElement" />
 </template>
 
 <script setup>
-import data from '../../assets/sampleData.json'
+import data from '@/assets/sampleData.json'
+import ItemNav from '@/components/ItemNav.vue'
+import EditOffcanvas from '@/components/LocationEditOffcanvas.vue'
 import * as bootstrap from 'bootstrap'
 import { ref, onMounted } from 'vue'
+
 const { locationPointDatas } = data
-function editLocation () {
+const locationEditElement = ref(null)
+const searchForm = ref(null)
+const tempObject = ref(null)
+
+/**
+ * 傳入需要修改的點位資料，開啟Offcanvas 進行修改編輯
+ * @param {Object} object 點位資料物件
+ */
+function editLocation (object) {
+  tempObject.value = { ...object }
   locationEditElement.value.show()
 }
-const locationEditElement = ref(null)
+/**
+ * 搜尋函式，串接 搜尋按鈕後需要進行的動作，用來更新畫面
+ */
+function searchFormSubmit (values) {
+  // 請串接  API
+  // 按鈕資料如下
+  //   {
+  //     "searchInput": "testInput",
+  //     "department": "總管理部",
+  //     "title": "總經理"
+  // }
+  console.log(values)
+}
+
+/**
+ * 清除表單內容，為套件 API
+ */
+function searchFormClean () {
+  searchForm.value.resetForm()
+}
+
+/**
+ * 將資料內有的點位類型，整理陣列。
+ * 以供搜尋視窗使用
+ */
+function getPointTypes () {
+  const pointTypes = []
+
+  locationPointDatas.forEach(data => {
+    const exist = pointTypes.findIndex(item => item === data.point_type)
+    if (exist) {
+      pointTypes.push(data.point_type)
+    }
+  })
+  return pointTypes
+}
+
 onMounted(() => {
   locationEditElement.value = new bootstrap.Offcanvas('#locationEditOffcanvas',
     {

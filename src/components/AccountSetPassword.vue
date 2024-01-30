@@ -41,7 +41,8 @@
 
 <script setup>
 import { ref, reactive } from 'vue'
-import Swal from 'sweetalert2'
+import commonFunction from '../assets/js/commonFunctions.js'
+const { swalSuccess } = commonFunction.setup()
 
 const setPasswordForm = ref(null)
 
@@ -59,13 +60,7 @@ function userFormSubmit () {
   setPasswordForm.value.resetForm()
   props.setPasswordElement.hide()
   props.accountEditElement.hide()
-  Swal.fire({
-    icon: 'success',
-    title: '已建立',
-    position: 'center',
-    showConfirmButton: false,
-    timer: 2000
-  })
+  swalSuccess('已建立')
 }
 
 </script>

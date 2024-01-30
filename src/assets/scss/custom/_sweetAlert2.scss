@@ -1,0 +1,20 @@
+@import 'sweetalert2/src/variables';
+
+$swal2-background: #F6FFED !default;
+$swal2-outline-color: #B7EB8F !default;
+$swal2-font-size: 14px !default;
+$swal2-success: $white !default;
+$swal2-success: #52C41A !default;
+
+// $swal2-black: $black !default;
+// $swal2-error: $danger !default;
+// $swal2-success:$primary !important;
+// $swal2-info:$third;
+// $swal2-info-border: rgba($third, 0.3) !important;
+// $swal2-success-border: rgba($primary, 0.3) !important;
+// $swal2-toast-title-font-size: $h6-font-size;
+
+// $swal2-confirm-button-background-color:$primary !important;
+// $swal2-cancel-button-background-color:$danger !important;
+
+@import 'sweetalert2/src/sweetalert2';

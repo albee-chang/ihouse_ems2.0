@@ -23,12 +23,6 @@
   position: relative;
   color: #686666;
 }
-.bg-white-box {
-  background-color: $white;
-  padding: 24px;
-  padding-left: 32px;
-  border-radius: 24px;
-}
 .table-head > * > * {
   background-color: #f4f4f4 !important;
   color: #686666 !important;
@@ -96,7 +90,7 @@ td {
     padding-top: 24px;
     padding-bottom: 40px;
     padding-left: 56px;
-    padding-right: 92px;
+    padding-right: 60px;
     .offcanvas-body {
       margin-right: -92px;
       padding-right: 64px;
@@ -116,7 +110,7 @@ td {
     padding-right: 150px;
     .offcanvas-body {
       margin-right: -150px;
-      padding-right: 200px;
+      padding-right: 80px;
     }
     .offcanvas-header .btn-close {
       margin-right: -150px;
@@ -127,7 +121,7 @@ td {
 @include media-breakpoint-up(xl) {
   .account-offcanvas {
     .offcanvas-body {
-      padding-right: 360px;
+      padding-right: 232px;
     }
   }
 }

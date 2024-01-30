@@ -1,13 +1,6 @@
 <template>
   <div class="container">
-    <ul class="list-unstyled d-flex page-box mb-4">
-      <li class="page-item">
-        <router-link to="/access/accountManger" class="page-link fs-4">帳號</router-link>
-      </li>
-      <li class="page-item">
-        <router-link to="/access/pageManger" class="page-link fs-4">頁面</router-link>
-      </li>
-    </ul>
+    <ItemNav :nav-where = "'access'"/>
     <section class="bg-white-box mb-2">
       <VForm class="d-flex justify-content-between align-items-end" ref="searchForm" @submit="searchFormSubmit">
         <div class="d-flex gap-2">
@@ -28,6 +21,7 @@
                 name="creator"
                 as="select"
                 class="form-select"
+                required
               >
                 <option value="" disabled>請選擇建立者</option>
                 <option
@@ -155,6 +149,7 @@
                 name="department"
                 as="select"
                 class="form-select"
+                required
               >
                 <option value="" disabled>單位</option>
                 <option
@@ -178,6 +173,7 @@
                 name="title"
                 as="select"
                 class="form-select"
+                required
               >
                 <option value="" disabled>職稱</option>
                 <option
@@ -302,10 +298,12 @@
 </template>
 
 <script setup>
-import data from '../../assets/sampleData.json'
-import * as bootstrap from 'bootstrap'
-import Swal from 'sweetalert2'
 import { onMounted, ref } from 'vue'
+import data from '@/assets/sampleData.json'
+import * as bootstrap from 'bootstrap'
+import * as commonFunction from '@/assets/js/commonFunctions.js'
+import ItemNav from '@/components/ItemNav.vue'
+const { swalSuccess } = commonFunction
 const paageUserAccessRef = ref(null)
 const editElement = ref(null)
 const delElement = ref(null)
@@ -317,6 +315,9 @@ const titles = data.titles
 const departments = data.departments
 const searchForm = ref(null)
 
+/**
+ * 搜尋函式，串接 搜尋按鈕後需要進行的動作，用來更新畫面
+ */
 function searchFormSubmit (values) {
 // 請串接 搜尋後的 API
 // 按鈕資料如下
@@ -345,12 +346,7 @@ function checkDelPage (id) {
   )
   tempArray.value = null
   delElement.value.hide()
-  Swal.fire({
-    icon: 'success',
-    title: '已刪除',
-    showConfirmButton: false,
-    timer: 2000
-  })
+  swalSuccess('已刪除')
 }
 
 const editPageBtn = (item) => {
@@ -436,13 +432,7 @@ function getPageAccess (pageTempArray, userData) {
  */
 function delePageAccess (access) {
   // 請在這裡接 刪除 使用者頁面權限 的 API
-  Swal.fire({
-    icon: 'success',
-    title: '已移除',
-    position: 'top',
-    showConfirmButton: false,
-    timer: 2000
-  })
+  swalSuccess('已移除')
 }
 
 /**

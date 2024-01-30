@@ -26,3 +26,10 @@
     border-top: 1px dashed #EAEAEA;
     margin: 10px 0; 
   }
+
+  .form-select:invalid {
+    color: #999999;
+    option{
+     color: $body-color; 
+    }
+  }

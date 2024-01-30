@@ -50,7 +50,7 @@
               <ErrorMessage as="p" class="invalid-feedback d-block mb-0" name="department" />
             </div>
             <div class="col-4">
-              <button type="button" class="btn btn-outline-primary" @click="addModal('department')">
+              <button type="button" class="btn btn-outline-primary " @click="addModal('department')">
                 建立新單位
               </button>
             </div>
@@ -69,7 +69,7 @@
               <ErrorMessage as="p" class="invalid-feedback d-block mb-0" name="title" />
             </div>
             <div class="col-4">
-              <button type="button" class="btn btn-outline-primary" @click="addModal('title')">
+              <button type="button" class="btn btn-outline-primary " @click="addModal('title')">
                 建立新職稱
               </button>
             </div>
@@ -77,7 +77,7 @@
           <div class="col-8">
             <label for="system-access" class="form-label">系統權限：</label>
             <VField id="system-access" name="system-access" as="select" class="form-select" required rules="required"
-              v-model="userObject.systemAccess">
+              v-model="userObject.systemAccess" :class="[userObject.systemAccess !== '' ? 'select-unslect' :'']">
               <option value="" disabled>請選擇權限</option>
               <option v-for="systemAccess in systemAccesss" :key="systemAccess" :value="systemAccess">
                 {{ getSystemAccessChinese(systemAccess) }}
@@ -102,7 +102,7 @@
             <ErrorMessage as="p" class="invalid-feedback d-block mb-0" :name="`page-${index}`" />
           </div>
           <div class="col-4">
-            <button type="button" class="btn btn-outline-gray dropdown-toggle" :class="[access.access !== '' ? 'text-black' : '']" data-bs-toggle="dropdown"
+            <button type="button" class="btn btn-outline-gray dropdown-toggle " :class="[access.access !== '' ? 'text-black' : '']" data-bs-toggle="dropdown"
               aria-expanded="false">
               {{
                 access.access !== ""
@@ -165,11 +165,13 @@
 
 <script setup>
 import { ref, reactive, watch, onMounted } from 'vue'
-import Swal from 'sweetalert2'
 import setPasswordCanvas from '@/components/AccountSetPassword.vue'
 import AddModal from '@/components/AddModal.vue'
 import data from '../assets/sampleData.json'
 import * as bootstrap from 'bootstrap'
+import commonFunction from '../assets/js/commonFunctions.js'
+const { swalSuccess } = commonFunction.setup()
+
 const props = defineProps([
   'departments',
   'titles',
@@ -260,13 +262,7 @@ function userFormSubmit () {
 function saveUserData () {
   // 請在這裡接 PUT 修改使用者的 API
   emit('updateUserObject', userObject)
-  Swal.fire({
-    icon: 'success',
-    title: '已儲存',
-    position: 'top',
-    showConfirmButton: false,
-    timer: 2000
-  })
+  swalSuccess('已儲存')
   props.accountEditElement.hide()
 }
 
@@ -275,13 +271,7 @@ function saveUserData () {
  */
 function delePageAccess (access) {
   // 請在這裡接 刪除 使用者頁面權限 的 API
-  Swal.fire({
-    icon: 'success',
-    title: '已移除',
-    position: 'top',
-    showConfirmButton: false,
-    timer: 2000
-  })
+  swalSuccess('已移除')
 }
 
 /**

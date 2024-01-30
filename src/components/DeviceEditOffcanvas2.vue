@@ -197,8 +197,9 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import Swal from 'sweetalert2'
 import * as bootstrap from 'bootstrap'
+import commonFunction from '../assets/js/commonFunctions.js'
+const { swalSuccess } = commonFunction.setup()
 
 const setPasswordForm = ref(null)
 
@@ -211,12 +212,7 @@ function userFormSubmit (value) {
   setPasswordForm.value.resetForm()
   props.setPasswordElement.hide()
   props.accountEditElement.hide()
-  Swal.fire({
-    icon: 'success',
-    title: '已建立',
-    showConfirmButton: false,
-    timer: 2000
-  })
+  swalSuccess('已建立')
 }
 
 const userObject = {
@@ -234,12 +230,7 @@ const openModal = () => {
 }
 const addPoint = () => {
   addPointElement.value.hide()
-  Swal.fire({
-    icon: 'success',
-    title: '已新增',
-    showConfirmButton: false,
-    timer: 2000
-  })
+  swalSuccess('已新增')
 }
 
 onMounted(() => {
